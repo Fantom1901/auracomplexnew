@@ -29,8 +29,8 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Кнопка плавно и дорого выезжает снизу через CSS-анимацию */}
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 animate-fade-in-up">
+      {/* КНОПКА: Плавное появление из небытия при загрузке страницы + дорогая анимация ховера */}
+      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 animate-[fadeIn_1s_ease-out_0.4s_both]">
         <a
           href="https://auracomplex.mehotel.ru/widget"
           target="_blank"
@@ -47,13 +47,13 @@ export default function Hero() {
             active:scale-[0.97] cursor-pointer select-none whitespace-nowrap
           "
         >
-          {/* Элегантная световая полоса при наведении */}
+          {/* ЭФФЕКТ СТРОГОГО БЛИКА: Элегантная световая полоса, пролетающая при наведении */}
           <span className="absolute inset-0 w-[200%] h-full bg-gradient-to-r from-transparent via-light-bg/10 to-transparent -skew-x-12 -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-[1200ms] ease-[cubic-bezier(0.16,_1,_0.3,_1)]" />
 
-          {/* Мягкое внутреннее свечение */}
+          {/* ЭФФЕКТ ГЛУБИНЫ: Мягкое внутреннее свечение, которое плавно разгорается на ховере */}
           <span className="absolute inset-0 bg-light-bg/[0.02] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-          {/* Текст раздвигает буквы на ховере */}
+          {/* ТЕКСТ: На ховере слегка приподнимается и увеличивает межбуквенный интервал */}
           <span className="relative z-10 tracking-normal group-hover:tracking-wider transition-all duration-500 ease-[cubic-bezier(0.16,_1,_0.3,_1)]">
             Подобрать номер
           </span>
