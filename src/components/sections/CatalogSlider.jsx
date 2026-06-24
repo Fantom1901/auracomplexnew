@@ -5,16 +5,19 @@ import Image from 'next/image';
 import useEmblaCarousel from 'embla-carousel-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+// Автоматически подтягивает '/auracomplexnew' на GitHub и пустую строку локально
+const basePath = process.env.__NEXT_ROUTER_BASE_PATH || '';
+
 const slides = [
-  { id: 1, src: '/assets/catalog/4.png' },
-  { id: 2, src: '/assets/catalog/2.png' },
-  { id: 3, src: '/assets/catalog/6.jpg' },
-  { id: 4, src: '/assets/catalog/8.jpg' },
-  { id: 5, src: '/assets/catalog/1.jpg' },
-  { id: 6, src: '/assets/catalog/7.jpg' },
-  { id: 7, src: '/assets/catalog/5.jpg' },
-  { id: 8, src: '/assets/catalog/3.jpg' },
-  { id: 9, src: '/assets/catalog/9.jpg' },
+  { id: 1, src: `${basePath}/assets/catalog/4.png` },
+  { id: 2, src: `${basePath}/assets/catalog/2.png` },
+  { id: 3, src: `${basePath}/assets/catalog/6.jpg` },
+  { id: 4, src: `${basePath}/assets/catalog/8.jpg` },
+  { id: 5, src: `${basePath}/assets/catalog/1.jpg` },
+  { id: 6, src: `${basePath}/assets/catalog/7.jpg` },
+  { id: 7, src: `${basePath}/assets/catalog/5.jpg` },
+  { id: 8, src: `${basePath}/assets/catalog/3.jpg` },
+  { id: 9, src: `${basePath}/assets/catalog/9.jpg` },
 ];
 
 export default function CatalogSlider() {
@@ -80,7 +83,7 @@ export default function CatalogSlider() {
             <button
               onClick={scrollPrev}
               disabled={prevBtnDisabled}
-              suppressHydrationWarning={true} // Глушим сверку этого атрибута при гидратации
+              suppressHydrationWarning={true}
               className={`
                 w-12 h-12 rounded-full border border-brand-dark/20 flex items-center justify-center 
                 transition-all duration-300 ease-out bg-transparent text-brand-dark
@@ -96,7 +99,7 @@ export default function CatalogSlider() {
             <button
               onClick={scrollNext}
               disabled={nextBtnDisabled}
-              suppressHydrationWarning={true} // Глушим сверку этого атрибута при гидратации
+              suppressHydrationWarning={true}
               className={`
                 w-12 h-12 rounded-full border border-brand-dark/20 flex items-center justify-center 
                 transition-all duration-300 ease-out bg-transparent text-brand-dark
