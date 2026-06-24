@@ -4,7 +4,7 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  basePath: '/auracomplexnew', // Добавили эту строку!
+  // basePath: '/auracomplexnew', // Добавили эту строку!
 };
 
 export default nextConfig;
