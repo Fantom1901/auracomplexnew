@@ -15,7 +15,7 @@ export default function Header({ isOpen, setIsOpen, menuItems }) {
   };
 
   return (
-    <div className="fixed top-3 left-0 right-0 w-full px-4 md:px-20 z-50 pointer-events-none">
+    <div className={`fixed top-3 inset-x-0 px-4 md:px-20 z-50 pointer-events-none ${shiftClasses} ${transitionClasses}`}>
       <div className="max-w-7xl mx-auto w-full relative pointer-events-auto">
         <motion.header
           variants={headerVariants}
@@ -61,7 +61,7 @@ export default function Header({ isOpen, setIsOpen, menuItems }) {
               <motion.span
                 animate={{ rotate: isOpen ? 45 : 0, y: isOpen ? 9 : 0 }}
                 transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                className={`w-6 h-0.5 ${isOpen ? 'bg-white' : 'bg-stone-950'}`}
+                className="w-6 h-0.5 bg-stone-950"
               />
               <motion.span
                 animate={{ opacity: isOpen ? 0 : 1 }}
@@ -71,7 +71,7 @@ export default function Header({ isOpen, setIsOpen, menuItems }) {
               <motion.span
                 animate={{ rotate: isOpen ? -45 : 0, y: isOpen ? -9 : 0 }}
                 transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                className={`w-6 h-0.5 ${isOpen ? 'bg-white' : 'bg-stone-950'}`}
+                className="w-6 h-0.5 bg-stone-950"
               />
             </div>
           </button>

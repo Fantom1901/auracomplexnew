@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import NavLink from '@/components/buttons/NavLink';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -10,20 +10,20 @@ export default function Footer() {
       <div className="w-full max-w-[1400px] flex flex-col gap-16">
 
         {/* ОСНОВНАЯ СЕТКА С ДАННЫМИ */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 items-start">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 md:gap-10 lg:gap-12 items-start">
 
-          {/* КОЛОНКА 1: МЕНЮ (4/12 ширины на десктопе) */}
+          {/* КОЛОНКА 1: МЕНЮ */}
           <div className="lg:col-span-2 flex flex-col gap-4">
             <h4 className="text-sm font-medium uppercase tracking-wider text-white/40">
               Меню
             </h4>
-            <nav className="flex flex-col gap-2.5 text-base font-normal text-white/80">
-              <Link href="/" className="hover:text-white transition-colors duration-200 w-fit">Главная</Link>
-              <Link href="/rooms" className="hover:text-white transition-colors duration-200 w-fit">Проживание</Link>
-              <Link href="/restaurant" className="hover:text-white transition-colors duration-200 w-fit">Ресторан</Link>
-              <Link href="/bany" className="hover:text-white transition-colors duration-200 w-fit">Бани</Link>
-              <Link href="/services" className="hover:text-white transition-colors duration-200 w-fit">Услуги</Link>
-              <Link href="/price" className="hover:text-white transition-colors duration-200 w-fit">Прайс</Link>
+            <nav className="flex flex-col gap-2.5 text-base font-normal text-white/80 items-start">
+              <NavLink href="/" isMobile={true} className="hover:text-white text-white/80">Главная</NavLink>
+              <NavLink href="/rooms" isMobile={true} className="hover:text-white text-white/80">Проживание</NavLink>
+              <NavLink href="/restaurant" isMobile={true} className="hover:text-white text-white/80">Ресторан</NavLink>
+              <NavLink href="/bany" isMobile={true} className="hover:text-white text-white/80">Бани</NavLink>
+              <NavLink href="/services" isMobile={true} className="hover:text-white text-white/80">Услуги</NavLink>
+              <NavLink href="/price" isMobile={true} className="hover:text-white text-white/80">Прайс</NavLink>
             </nav>
           </div>
 
@@ -32,11 +32,19 @@ export default function Footer() {
             <h4 className="text-sm font-medium uppercase tracking-wider text-white/40">
               Документы
             </h4>
-            <div className="flex flex-col gap-2.5 text-base font-normal text-white/80">
-              <a href="/docs/oferta.pdf" target="_blank" className="hover:text-white transition-colors duration-200 w-fit">Договор оферты</a>
-              <a href="/docs/booking-terms.pdf" target="_blank" className="hover:text-white transition-colors duration-200 w-fit">Условия бронирования</a>
-              <a href="/docs/rules.pdf" target="_blank" className="hover:text-white transition-colors duration-200 w-fit">Правила проживания</a>
-              <a href="/privacy" className="hover:text-white transition-colors duration-200 w-fit">Политика конфиденциальности</a>
+            <div className="flex flex-col gap-2.5 text-base font-normal text-white/80 items-start">
+              <NavLink className="hover:text-white text-white/80">
+                <a href="/docs/oferta.pdf" target="_blank" rel="noopener noreferrer">Договор оферты</a>
+              </NavLink>
+              <NavLink className="hover:text-white text-white/80">
+                <a href="/docs/booking-terms.pdf" target="_blank" rel="noopener noreferrer">Условия бронирования</a>
+              </NavLink>
+              <NavLink className="hover:text-white text-white/80">
+                <a href="/docs/rules.pdf" target="_blank" rel="noopener noreferrer">Правила проживания</a>
+              </NavLink>
+              <NavLink className="hover:text-white text-white/80">
+                <a href="/privacy" className="text-lg/0.5">Политика <br/> конфиденциальности</a>
+              </NavLink>
             </div>
           </div>
 
