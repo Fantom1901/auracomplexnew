@@ -1,29 +1,40 @@
 "use client";
 
 import { useState, useEffect, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import useEmblaCarousel from 'embla-carousel-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// Автоматически подтягивает '/auracomplexnew' на GitHub и пустую строку локально
-const basePath = process.env.__NEXT_ROUTER_BASE_PATH || '';
+// Импорты всех картинок
+import img1 from '../../../public/assets/catalog/1.jpg';
+import img2 from '../../../public/assets/catalog/2.png';
+import img3 from '../../../public/assets/catalog/3.jpg';
+import img4 from '../../../public/assets/catalog/4.png';
+import img5 from '../../../public/assets/catalog/5.jpg';
+import img6 from '../../../public/assets/catalog/6.jpg';
+import img7 from '../../../public/assets/catalog/7.jpg';
+import img8 from '../../../public/assets/catalog/8.jpg';
+import img9 from '../../../public/assets/catalog/9.jpg';
 
+// ВОЗВРАЩЕН ИСХОДНЫЙ ПОРЯДОК СЛАЙДОВ
 const slides = [
-  { id: 1, src: `${basePath}/assets/catalog/4.png` },
-  { id: 2, src: `${basePath}/assets/catalog/2.png` },
-  { id: 3, src: `${basePath}/assets/catalog/6.jpg` },
-  { id: 4, src: `${basePath}/assets/catalog/8.jpg` },
-  { id: 5, src: `${basePath}/assets/catalog/1.jpg` },
-  { id: 6, src: `${basePath}/assets/catalog/7.jpg` },
-  { id: 7, src: `${basePath}/assets/catalog/5.jpg` },
-  { id: 8, src: `${basePath}/assets/catalog/3.jpg` },
-  { id: 9, src: `${basePath}/assets/catalog/9.jpg` },
+  { id: 1, src: img4 },
+  { id: 2, src: img2 },
+  { id: 3, src: img6 },
+  { id: 4, src: img8 },
+  { id: 5, src: img1 },
+  { id: 6, src: img7 },
+  { id: 7, src: img5 },
+  { id: 8, src: img3 },
+  { id: 9, src: img9 },
 ];
 
 export default function CatalogSlider() {
   const [activeImage, setActiveImage] = useState(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [mounted, setMounted] = useState(false);
 
   const [prevBtnDisabled, setPrevBtnDisabled] = useState(true);
   const [nextBtnDisabled, setNextBtnDisabled] = useState(false);
@@ -49,6 +60,7 @@ export default function CatalogSlider() {
   }, []);
 
   useEffect(() => {
+    setMounted(true);
     if (!emblaApi) return;
 
     emblaApi.on('select', onSelect);
@@ -60,7 +72,7 @@ export default function CatalogSlider() {
   }, [emblaApi, onSelect, onScroll]);
 
   return (
-    <section className="w-full bg-light-bg text-brand-dark py-20 md:py-32 select-none relative overflow-hidden">
+    <section className="w-full bg-light-bg text-brand-dark py-10 md:py-22 select-none relative overflow-hidden">
 
       {/* ЗАГОЛОВОК И КНОПКИ НАВИГАЦИИ */}
       <div className="w-full px-4 md:px-20 max-w-7xl mx-auto mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
@@ -78,12 +90,10 @@ export default function CatalogSlider() {
             Листайте галерею и нажимайте на фото, чтобы рассмотреть интерьеры во весь экран.
           </p>
 
-          {/* Блок со стрелками */}
           <div className="hidden md:flex items-center gap-3 pl-4">
             <button
               onClick={scrollPrev}
               disabled={prevBtnDisabled}
-              suppressHydrationWarning={true}
               className={`
                 w-12 h-12 rounded-full border border-brand-dark/20 flex items-center justify-center 
                 transition-all duration-300 ease-out bg-transparent text-brand-dark
@@ -99,7 +109,6 @@ export default function CatalogSlider() {
             <button
               onClick={scrollNext}
               disabled={nextBtnDisabled}
-              suppressHydrationWarning={true}
               className={`
                 w-12 h-12 rounded-full border border-brand-dark/20 flex items-center justify-center 
                 transition-all duration-300 ease-out bg-transparent text-brand-dark
@@ -126,12 +135,13 @@ export default function CatalogSlider() {
               <div
                 key={slide.id}
                 onClick={() => setActiveImage(slide.src)}
-                className="relative flex-none w-[84vw] md:w-[38vw] max-w-[480px] aspect-[1024/1280] rounded-2xl md:rounded-3xl overflow-hidden bg-stone-100 border border-stone-200/30 shadow-md transition-shadow duration-300 hover:shadow-xl"
+                className="relative flex-none w-[84vw] md:w-[38vw] max-w-[480px] aspect-[1024/1280] rounded-2xl md:rounded-3xl overflow-hidden bg-stone-100 border border-stone-200/30 shadow-sm transition-shadow duration-300 hover:shadow-md cursor-zoom-in"
               >
                 <Image
                   src={slide.src}
                   alt="Локация комплекса AURA"
                   fill
+                  placeholder="blur"
                   sizes="(max-w-768px) 84vw, 480px"
                   className="object-cover pointer-events-none"
                 />
@@ -159,38 +169,39 @@ export default function CatalogSlider() {
         />
       </div>
 
-      {/* МОДАЛКА ЗУМА */}
-      <AnimatePresence>
-        {activeImage && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setActiveImage(null)}
-            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex items-center justify-center p-4 md:p-10 cursor-zoom-out"
-          >
-            <button className="absolute top-6 right-6 text-white/50 text-xs tracking-widest uppercase hover:text-white transition-colors">
-              Закрыть
-            </button>
-
+      {/* МОДАЛКА ЗУМА ЧЕРЕЗ ПОРТАЛ */}
+      {mounted && createPortal(
+        <AnimatePresence>
+          {activeImage && (
             <motion.div
-              initial={{ scale: 0.98 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.98 }}
-              onClick={(e) => e.stopPropagation()}
-              className="relative w-full h-full max-h-[82vh] md:max-h-[88vh] aspect-[1024/1280]"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setActiveImage(null)}
+              className="fixed inset-0 z-[9999] bg-black/95 backdrop-blur-md flex items-center justify-center p-4 md:p-10 cursor-zoom-out"
             >
-              <Image
-                src={activeImage}
-                alt="Увеличенное фото локации"
-                fill
-                className="object-contain"
-                sizes="100vw"
-              />
+              <button className="absolute top-6 right-6 text-white/50 text-xs tracking-widest uppercase hover:text-white transition-colors">
+                Закрыть
+              </button>
+
+              <motion.div
+                initial={{ scale: 0.98 }}
+                animate={{ scale: 1 }}
+                exit={{ scale: 0.98 }}
+                onClick={(e) => e.stopPropagation()}
+                className="relative max-w-full max-h-[82vh] md:max-h-[88vh] flex items-center justify-center"
+              >
+                <Image
+                  src={activeImage}
+                  alt="Увеличенное фото локации"
+                  className="w-auto h-auto max-w-full max-h-[82vh] md:max-h-[88vh] object-contain rounded-lg md:rounded-xl shadow-2xl"
+                />
+              </motion.div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
 
     </section>
   );
