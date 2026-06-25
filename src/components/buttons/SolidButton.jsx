@@ -1,45 +1,51 @@
 'use client';
 
+import React from 'react';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 
-export default function solidButton({
-                                 children,
-                                 onClick,
-                                 type = 'button',
-                                 variant = 'outline', // 'outline' | 'filled'
-                                 rounded = 'rounded-full', // Передаем любые классы скругления: rounded-xl, rounded-3xl и т.д.
-                                 className = ''
-                               }) {
+// Создаем анимированный компонент Link для Framer Motion
+const MotionLink = motion(Link);
+
+export default function SolidButton({
+                                      children,
+                                      onClick,
+                                      href,
+                                      type = 'button',
+                                      variant = 'outline', // 'outline' | 'filled'
+                                      rounded = 'rounded-full', // Передаем любые классы скругления: rounded-xl, rounded-3xl и т.д.
+                                      className = ''
+                                    }) {
 
   // Стили для разных вариантов кнопки, завязанные на наши фирменные цвета
-  const baseStyles = `relative px-8 py-4 text-sm md:text-base font-medium tracking-wide transition-colors duration-500 overflow-hidden ${rounded} ${className}`;
+  const baseStyles = `relative inline-flex items-center justify-center px-8 py-4 text-sm md:text-base font-medium tracking-wide transition-colors duration-500 overflow-hidden select-none cursor-pointer ${rounded} ${className}`;
 
   const variants = {
     outline: 'border border-brand-dark/20 text-brand-dark bg-transparent',
     filled: 'bg-brand-dark text-brand-white border border-transparent'
   };
 
-  return (
-    <motion.button
-      type={type}
-      onClick={onClick}
-      className={`${baseStyles} ${variants[variant]} group`}
-      // Эффект при наведении (слегка увеличиваем кнопку и делаем тень глубже)
-      whileHover={{
-        scale: 1.02,
-        boxShadow: "0 10px 30px rgba(48,67,64,0.05)"
-      }}
-      // Эффект при нажатии (физический отклик)
-      whileTap={{ scale: 0.98 }}
-      transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-    >
+  // Общие настройки анимаций и интерактивности для Framer Motion
+  const motionProps = {
+    className: `${baseStyles} ${variants[variant]} group`,
+    whileHover: {
+      scale: 1.02,
+      boxShadow: "0 10px 30px rgba(48,67,64,0.05)"
+    },
+    whileTap: { scale: 0.98 },
+    transition: { type: 'spring', stiffness: 400, damping: 30 }
+  };
+
+  // Внутренний контент кнопки (текст, иконка, стрелочка, фоны)
+  const buttonContent = (
+    <>
       {/* Анимированный фон-заливка для outline варианта */}
       {variant === 'outline' && (
-        <span className="absolute inset-0 bg-brand-dark translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[0.16,1,0.3,1] -z-10" />
+        <span className="absolute inset-0 bg-brand-dark translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[0.16,1,0.3,1] z-0" />
       )}
 
       {/* Контент кнопки (текст + возможная иконка) */}
-      <span className={`flex items-center justify-center gap-2 transition-colors duration-500 ${variant === 'outline' ? 'group-hover:text-brand-white' : ''}`}>
+      <span className={`flex items-center justify-center gap-2 relative z-10 transition-colors duration-500 ${variant === 'outline' ? 'group-hover:text-brand-white' : ''}`}>
         {children}
 
         {/* Минималистичная стрелочка, которая изящно сдвигается вправо при ховере */}
@@ -55,6 +61,22 @@ export default function solidButton({
           <polyline points="12 5 19 12 12 19"></polyline>
         </svg>
       </span>
+    </>
+  );
+
+  // Если передан href, рендерим как ссылку Next.js
+  if (href) {
+    return (
+      <MotionLink href={href} onClick={onClick} {...motionProps}>
+        {buttonContent}
+      </MotionLink>
+    );
+  }
+
+  // В противном случае рендерим как стандартную кнопку
+  return (
+    <motion.button type={type} onClick={onClick} {...motionProps}>
+      {buttonContent}
     </motion.button>
   );
 }

@@ -15,7 +15,8 @@ const NavLink = ({ href, children, className = '', isMobile = false }) => {
     <span className="absolute bottom-0 left-0 w-full h-[1px] bg-current scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] origin-left" />
   );
 
-  if (isMobile && href) {
+  // Если есть href, в любом случае рендерим Link (и для мобилки, и для десктопа)
+  if (href) {
     return (
       <Link href={href} className={linkStyles}>
         {children}
@@ -24,6 +25,7 @@ const NavLink = ({ href, children, className = '', isMobile = false }) => {
     );
   }
 
+  // Фолбэк на случай, если ссылки нет (просто заглушка-див)
   return (
     <div className={linkStyles}>
       {children}
