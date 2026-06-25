@@ -17,14 +17,14 @@ export const metadata = {
 };
 
 const menuItems = [
-  { name: 'Проживание', href: '/app/public' },
-  { name: 'Ресторан', href: '/app/public' },
-  { name: 'Услуги', href: '/app/public' },
-  { name: 'Бани', href: '/app/public' },
-  { name: 'Прайс', href: '/app/public' },
+  { name: 'Проживание', href: '/accommodation' },
+  { name: 'Ресторан', href: '/restaurant' },
+  { name: 'Услуги', href: '/services' },
+  { name: 'Бани', href: '/banya' },
+  { name: 'Прайс', href: '/price' },
 ];
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children, modal }) {
   return (
     <html lang="ru">
     <body className={`${atypText.variable} antialiased bg-stone-950 relative min-h-screen w-full overflow-x-hidden`}>
@@ -33,6 +33,9 @@ export default function RootLayout({ children }) {
     <TelegramMenuWrapper menuItems={menuItems}>
       {children}
     </TelegramMenuWrapper>
+
+    {/* Слот для модальных окон (Intercepting Routes) */}
+    {modal}
 
     </body>
     </html>
