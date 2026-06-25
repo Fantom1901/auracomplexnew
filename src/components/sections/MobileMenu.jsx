@@ -6,40 +6,55 @@ import AnimatedButton from '@/components/buttons/AnimatedButton';
 import NavLink from '@/components/buttons/NavLink';
 import { FaTelegram, FaVk, FaOdnoklassniki } from 'react-icons/fa';
 
-export default function MobileMenu({ isOpen, setIsOpen, menuItems, sharedTransition }) {
+// Убрали из пропсов sharedTransition, настраиваем строго здесь
+export default function MobileMenu({ isOpen, setIsOpen, menuItems }) {
+
+  // Единый жесткий транзишн без пружин и отскоков для самого меню
+  const menuTransition = {
+    type: 'tween',
+    ease: 'easeInOut',
+    duration: 0.3
+  };
 
   const navContainerVariants = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
-      transition: { staggerChildren: 0.04, delayChildren: 0.1 }
+      transition: { staggerChildren: 0.04, delayChildren: 0.05 }
     }
   };
 
   const navItemVariants = {
-    hidden: { opacity: 0, x: 20 },
-    show: { opacity: 1, x: 0, transition: { type: 'tween', ease: [0.16, 1, 0.3, 1], duration: 0.4 } }
+    hidden: { opacity: 0, x: 15 },
+    show: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        type: 'tween',
+        ease: 'easeInOut',
+        duration: 0.25
+      }
+    }
   };
 
   return (
     <motion.div
       initial={{ x: '100%' }}
       animate={{ x: isOpen ? '0%' : '100%' }}
-      transition={sharedTransition}
-      // z-50 гарантирует, что меню лежит ПОВЕРХ оверлея закрытия, и все кнопки внутри него работают
-      className="fixed top-0 right-0 h-screen w-[75vw] sm:w-80 bg-stone-950 pt-20 px-6 flex flex-col lg:hidden z-50 pointer-events-auto border-l border-white/5"
+      transition={menuTransition} // Повесили чистый tween
+      className="fixed top-0 right-0 h-screen w-[75vw] sm:w-[320px] bg-stone-950 pt-20 px-6 flex flex-col lg:hidden z-50 pointer-events-auto border-l border-white/5"
     >
       {/* Логотип */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: isOpen ? 1 : 0, scale: isOpen ? 1 : 0.95 }}
-        transition={{ delay: 0.1 }}
+        initial={{ opacity: 0, scale: 0.98 }}
+        animate={{ opacity: isOpen ? 1 : 0, scale: isOpen ? 1 : 0.98 }}
+        transition={{ duration: 0.2, ease: 'easeInOut' }}
         className="bg-[#a3c6a8] w-27 h-20 flex rounded-xl items-center justify-center mb-12 mx-2"
       >
         <Logo size={'lg'} />
       </motion.div>
 
-      {/* ЭЛЕГАНТНЫЕ ССЫЛКИ */}
+      {/* ССЫЛКИ */}
       <motion.div
         variants={navContainerVariants}
         initial="hidden"
@@ -55,7 +70,6 @@ export default function MobileMenu({ isOpen, setIsOpen, menuItems, sharedTransit
             <NavLink
               href={item.href}
               isMobile={true}
-              // Делаем элемент блочным, добавляем внутренние отступы и интерактивную стрелочку на ховер/тап
               className="flex items-center justify-between py-4 px-2 w-full text-base font-normal tracking-wide text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-all duration-300 group"
             >
               <span>{item.name}</span>
@@ -72,7 +86,7 @@ export default function MobileMenu({ isOpen, setIsOpen, menuItems, sharedTransit
         ))}
       </motion.div>
 
-      {/* Соцсети и кнопка звонка */}
+      {/* Соцсети */}
       <div className="flex flex-col justify-end items-center h-full mb-8 gap-6">
         <b className="text-white/40 font-medium text-xs uppercase tracking-wider">Мы в социальных сетях</b>
 
@@ -89,12 +103,12 @@ export default function MobileMenu({ isOpen, setIsOpen, menuItems, sharedTransit
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: isOpen ? 1 : 0, y: isOpen ? 0 : 10 }}
-          transition={{ delay: 0.2, duration: 0.4 }}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: isOpen ? 1 : 0, y: isOpen ? 0 : 8 }}
+          transition={{ delay: 0.15, duration: 0.3, ease: 'easeInOut' }}
           className="w-full flex justify-center px-2"
         >
-          <AnimatedButton href="tel:+73912311616" variant="transparent" size="lg" className="w-full text-center">
+          <AnimatedButton href="tel:+73912311616" variant="light" size="md" className="w-full text-center">
             Позвонить сейчас
           </AnimatedButton>
         </motion.div>
