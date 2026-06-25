@@ -40,11 +40,31 @@ def run_command(command, description, capture_output=False):
       log_error(f"Ошибка при выполнении: {description}")
     return None if capture_output else False
 
-def build():
-  print(f"\n{BOLD}=== ЗАПУСК ПОЛНОЙ СБОРКИ ПРОЕКТА ==={RESET}")
-  if not run_command("npm run build", "Локальная сборка Next.js (standalone)"):
+def update():
+  print(f"\n{BOLD}=== ОБНОВЛЕНИЕ ПРОЕКТА ИЗ GITHUB ==={RESET}")
+
+  # 1. Подтягиваем изменения
+  if not run_command("git pull", "Получение свежего кода из Git"):
+    log_error("Не удалось выполнить git pull. Возможно, есть некоммитнутые изменения или проблемы с правами.")
     sys.exit(1)
-  if not run_command("docker compose build --no-cache", "Сборка Docker-образа (--no-cache)"):
+
+  # 2. Пересобираем Docker-образы (кэш Docker сам поймет, что изменилось)
+  if not run_command("docker compose build", "Пересборка Docker-образов"):
+    sys.exit(1)
+
+  # 3. Перезапускаем контейнеры в фоне (Nginx и Next.js обновятся на лету)
+  if not run_command("docker compose up -d", "Обновление запущенных контейнеров"):
+    sys.exit(1)
+
+  # 4. Чистим мусор, чтобы не забивать место на сервере
+  run_command("docker image prune -f", "Очистка устаревших Docker-образов")
+
+  log_success("Проект успешно обновлен до актуальной версии из GitHub и перезапущен!")
+
+def build():
+  print(f"\n{BOLD}=== ЗАПУСК ПОЛНОЙ СБОРКИ ПРОЕКТА В DOCKER ==={RESET}")
+  # Больше не нужно запускать локальный npm run build, Docker все сделает сам
+  if not run_command("docker compose build --no-cache", "Сборка Docker-образов (--no-cache)"):
     sys.exit(1)
   log_success("Проект успешно собран и готов к запуску!")
 
@@ -106,7 +126,7 @@ def status():
   # 3. HTTP Пинг (Проверяем доступность веб-сервера)
   print(f"\n{CYAN}{BOLD}[ 3. Проверка доступности веб-сервера ]{RESET}")
   # Дергаем curl локально внутри сети хоста
-  http_status = run_command("curl -s -o /dev/null -w '%{http_code}' http://localhost:3000/ || true", "HTTP пинг", capture_output=True)
+  http_status = run_command("curl -s -o /dev/null -w '%{http_code}' http://localhost:80/ || true", "HTTP пинг через Nginx", capture_output=True)
   if http_status and http_status.strip() != "000":
     code = http_status.strip()
     color = GREEN if code.startswith("2") or code.startswith("3") else YELLOW
@@ -135,6 +155,7 @@ def show_help():
   {GREEN}start{RESET}   - Запустить уже собранные контейнеры
   {GREEN}stop{RESET}    - Остановить контейнеры
   {GREEN}restart{RESET} - Перезапустить (stop + start)
+  {GREEN}update{RESET}  - Подтянуть изменения из Git, пересобрать и обновить контейнеры
   {GREEN}status{RESET}  - Вывести супер детальный статус, ресурсы, порты и логи
     """)
 
@@ -153,6 +174,8 @@ def main():
     stop()
   elif action == "restart":
     restart()
+  elif action == "update":  # <-- Новая ветка
+    update()
   elif action in ["status", "info"]:
     status()
   else:
