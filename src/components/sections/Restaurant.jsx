@@ -98,7 +98,7 @@ export default function Restaurant() {
             viewport={{ once: true }}
             transition={{ delay: 0.4, type: 'spring', stiffness: 300, damping: 25 }}
           >
-            <Button variant="outline" rounded="rounded-[16px] md:rounded-[20px]">
+            <Button variant="outline" rounded="rounded-[16px] md:rounded-[20px]" href="restaurant">
               Подробнее о ресторане
             </Button>
           </motion.div>

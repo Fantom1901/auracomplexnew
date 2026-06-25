@@ -5,9 +5,7 @@ import Image from 'next/image';
 import interiorImg from '../../../public/assets/interior.png';
 import AnimatedButton from '@/components/buttons/AnimatedButton';
 export default function CertificateSection() {
-  const handleOrderClick = () => {
-    console.log('Открытие модального окна оформления сертификата');
-  };
+
 
   return (
     <section className="w-full bg-light-bg text-brand-dark py-20 md:py-36 px-6 md:px-16 flex flex-col items-center">
@@ -71,7 +69,7 @@ export default function CertificateSection() {
 
             <AnimatedButton
               variant="light"
-              onClick={handleOrderClick}
+              href="http://t.me/auracomplex.ru"
               animation="shimmer"
             >Оформить сертификат
             </AnimatedButton>

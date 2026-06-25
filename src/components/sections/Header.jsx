@@ -21,7 +21,7 @@ export default function Header({ isOpen, setIsOpen, menuItems, shiftClasses = ''
           variants={headerVariants}
           initial="initial"
           animate="animate"
-          className="w-full bg-light-bg text-brand-dark h-13 rounded-[12px] shadow-md relative"
+          className="w-full bg-light-bg text-brand-dark h-13 rounded-[12px] shadow-md relative pointer-events-auto"
         >
           <div className="h-full flex items-center justify-between pr-16 lg:pr-8">
             <motion.div
@@ -34,7 +34,7 @@ export default function Header({ isOpen, setIsOpen, menuItems, shiftClasses = ''
             </motion.div>
 
             {/* ДЕСКТОПНОЕ МЕНЮ */}
-            <nav className="hidden lg:flex w-auto mx-auto items-center justify-center gap-12 font-normal text-sm">
+            <nav className="hidden lg:flex w-auto mx-auto items-center justify-center gap-12 font-normal text-sm pointer-events-auto">
               {menuItems.map((item) => (
                 <NavLink
                   key={item.name}
@@ -54,7 +54,7 @@ export default function Header({ isOpen, setIsOpen, menuItems, shiftClasses = ''
           {/* ИНТЕРАКТИВНЫЙ БУРГЕР / КРЕСТИК */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden flex items-center justify-center w-8 h-8 absolute right-4 top-1/2 -translate-y-1/2 focus:outline-none z-50"
+            className="lg:hidden flex items-center justify-center w-8 h-8 absolute right-4 top-1/2 -translate-y-1/2 focus:outline-none z-50 pointer-events-auto"
             aria-label={isOpen ? "Закрыть меню" : "Открыть меню"}
           >
             <div className="w-6 h-5 relative flex flex-col justify-between items-center">
