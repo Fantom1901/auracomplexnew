@@ -1,8 +1,14 @@
 'use client';
 
 import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import Button from '@/components/buttons/SolidButton'; // Импортируем нашу крутую кнопку
+import Image from 'next/image';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import Button from '@/components/buttons/SolidButton';
+
+import auraPool from '../../../public/assets/auraPool.jpg';
+import banyaImg from '../../../public/assets/banya.png';
+import kidsImg from '../../../public/assets/kids.jpg';
+import playgroundImg from '../../../public/assets/playground.jpg';
 
 const servicesData = [
   {
@@ -10,42 +16,51 @@ const servicesData = [
     title: 'Подогреваем панорамный бассейн',
     time: 'c 8:00 до 21:00',
     size: 'md:col-span-7',
-    bg: 'bg-stone-200'
+    bg: 'bg-stone-200',
+    image: auraPool
   },
   {
     id: 2,
     title: 'Гранд-баня с купелью',
     time: 'и три бани на высоте',
     size: 'md:col-span-5',
-    bg: 'bg-stone-300'
+    bg: 'bg-stone-300',
+    image: banyaImg
   },
   {
     id: 3,
     title: 'Двухэтажная детская комната',
     time: 'пространство для игр',
     size: 'md:col-span-5',
-    bg: 'bg-stone-300'
+    bg: 'bg-stone-300',
+    image: kidsImg
   },
   {
     id: 4,
     title: 'Детская площадка',
     time: 'с эко-песочницей',
     size: 'md:col-span-7',
-    bg: 'bg-stone-200'
+    bg: 'bg-stone-200',
+    image: playgroundImg
   }
 ];
 
 function ServiceCard({ service, index }) {
   const cardRef = useRef(null);
 
-  // Следим за скроллом конкретной карточки относительно экрана
+  // Контролируем скролл карточки
   const { scrollYProgress } = useScroll({
     target: cardRef,
     offset: ["start end", "end start"]
   });
 
-  // Фирменное смещение от 0% до 15% для эффекта параллакса
-  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
+  const rawY = useTransform(scrollYProgress, [0, 1], [-40, 40]);
+
+  const smoothY = useSpring(rawY, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
 
   return (
     <motion.div
@@ -53,20 +68,34 @@ function ServiceCard({ service, index }) {
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: index * 0.1 }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: index * 0.05 }}
       className={`group relative h-[350px] md:h-[480px] rounded-[24px] md:rounded-[32px] overflow-hidden ${service.size} cursor-pointer shadow-[0_4px_30px_rgba(0,0,0,0.02)] border border-stone-200/40`}
     >
-      {/* Контейнер бэкграунда с эффектом параллакса */}
+      {/* Контейнер бэкграунда с параллаксом */}
       <motion.div
-        style={{ y: backgroundY }}
-        className="absolute inset-x-0 -top-[15%] bottom-0 z-0 will-change-transform transition-transform duration-1000 ease-[0.16, 1, 0.3, 1] group-hover:scale-105"
+        style={{ y: smoothY }}
+        className="absolute -inset-y-12 inset-x-0 z-0 will-change-transform"
       >
-        {/* Пока фоток нет — оставляем заливку, когда добавишь тег <Image />, эффект применится к нему */}
-        <div className={`w-full h-full ${service.bg}`} />
+        {/* ДОБАВИЛИ КЛАСС relative СЮДА, чтобы зафиксировать рамки для <Image /> */}
+        <div className="relative w-full h-full transition-transform duration-700 ease-[0.16,1,0.3,1] group-hover:scale-105">
+          {service.image ? (
+            <Image
+              src={service.image}
+              alt={service.title}
+              fill
+              placeholder="blur"
+              sizes="(max-w-768px) 100vw, 50vw"
+              className="object-cover"
+              priority={index < 2}
+            />
+          ) : (
+            <div className={`w-full h-full ${service.bg}`} />
+          )}
+        </div>
       </motion.div>
 
       {/* Градиентное затемнение поверх параллакса */}
-      <div className="absolute inset-0 z-10 bg-gradient-to-t from-brand-dark/60 via-brand-dark/10 to-transparent transition-opacity duration-500 opacity-80 group-hover:opacity-95" />
+      <div className="absolute inset-0 z-10 bg-gradient-to-t from-brand-dark/70 via-brand-dark/20 to-transparent transition-opacity duration-500 opacity-80 group-hover:opacity-95" />
 
       {/* Контент карточки */}
       <div className="absolute inset-0 z-20 p-8 md:p-12 flex flex-col justify-end text-brand-white">
@@ -118,7 +147,7 @@ export default function Services() {
         ))}
       </div>
 
-      {/* ИНТЕГРАЦИЯ НАШЕЙ МЕГА КРУТОЙ КНОПКИ */}
+      {/* КНОПКА */}
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}

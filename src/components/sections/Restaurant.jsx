@@ -1,8 +1,13 @@
 'use client';
 
 import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import Image from 'next/image';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import Button from '@/components/buttons/SolidButton';
+
+// ИМПОРТИРУЕМ ФОТО СЮДА (Замени названия файлов на свои)
+import restaurantMain from '../../../public/assets/restaurantMain.jpg';
+import restaurantAccent from '../../../public/assets/restaurantAccent.jpg';
 
 export default function Restaurant() {
   const collageRef = useRef(null);
@@ -13,11 +18,13 @@ export default function Restaurant() {
     offset: ["start end", "end start"]
   });
 
-  // Основное изображение смещается стандартно (от 0% до 15%)
-  const mainImageY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
+  // Основное изображение смещается стандартно (используем числа для скорости)
+  const mainRawY = useTransform(scrollYProgress, [0, 1], [-30, 30]);
+  const mainImageY = useSpring(mainRawY, { stiffness: 100, damping: 30, restDelta: 0.001 });
 
-  // Акцентное изображение смещается чуть сильнее (от -5% до 20%), создавая эффект многослойности
-  const accentImageY = useTransform(scrollYProgress, [0, 1], ["-5%", "20%"]);
+  // Акцентное изображение смещается чуть сильнее, создавая эффект многослойности
+  const accentRawY = useTransform(scrollYProgress, [0, 1], [-50, 50]);
+  const accentImageY = useSpring(accentRawY, { stiffness: 100, damping: 30, restDelta: 0.001 });
 
   return (
     <section className="w-full bg-light-bg text-brand-dark py-20 md:py-36 px-6 md:px-16 flex justify-center overflow-hidden">
@@ -116,8 +123,22 @@ export default function Restaurant() {
               style={{ y: mainImageY }}
               className="absolute inset-x-0 -top-[15%] bottom-0 z-0 will-change-transform"
             >
-              {/* Сюда встанет тег <Image />. Пока заливка, которая отлично отрабатывает движение */}
-              <div className="w-full h-full bg-stone-300 hover:scale-103 transition-transform duration-1000 ease-out" />
+              {/* Обертка для ховера с фиксом position relative под <Image fill /> */}
+              <div className="relative w-full h-full transition-transform duration-1000 ease-out hover:scale-103">
+                {restaurantMain ? (
+                  <Image
+                    src={restaurantMain}
+                    alt="Ресторан Тепло"
+                    fill
+                    placeholder="blur"
+                    sizes="(max-w-1024px) 100vw, 50vw"
+                    className="object-cover"
+                    priority
+                  />
+                ) : (
+                  <div className="w-full h-full bg-stone-300" />
+                )}
+              </div>
             </motion.div>
           </motion.div>
 
@@ -134,8 +155,21 @@ export default function Restaurant() {
               style={{ y: accentImageY }}
               className="absolute inset-x-0 -top-[20%] -bottom-[20%] z-0 will-change-transform"
             >
-              {/* Сюда встанет фотка блюда или камина */}
-              <div className="w-full h-full bg-stone-400 hover:scale-105 transition-transform duration-1000 ease-out" />
+              {/* Обертка для ховера с фиксом position relative под <Image fill /> */}
+              <div className="relative w-full h-full transition-transform duration-1000 ease-out hover:scale-105">
+                {restaurantAccent ? (
+                  <Image
+                    src={restaurantAccent}
+                    alt="Блюдо сибирской кухни"
+                    fill
+                    placeholder="blur"
+                    sizes="(max-w-1024px) 50vw, 25vw"
+                    className="object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-stone-400" />
+                )}
+              </div>
             </motion.div>
           </motion.div>
 

@@ -2,14 +2,21 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-// Импортируем нашу кнопку (поправь путь, если папка называется по-другому, например ui/buttons)
 import AnimatedButton from '../buttons/AnimatedButton';
+// Импортируем наш переиспользуемый слайдер
+import PremiumSlider from '@/components/sliders/PremiumSlider';
 
 const roomsData = [
   {
     id: 'comfort',
     label: 'Комфорт',
     title: 'Номер Комфорт',
+    // Кастомные градиенты-заглушки (заменишь потом на реальные URL картинок, если нужно)
+    images: [
+      { id: 1, color: 'from-[#2C3E35] to-[#1A2621]', title: 'Спальная зона комфорт', tag: 'Interior' },
+      { id: 2, color: 'from-[#3A3238] to-[#251F24]', title: 'Ванная комната', tag: 'Bathroom' },
+      { id: 3, color: 'from-[#232B38] to-[#141923]', title: 'Вид из окна', tag: 'View' },
+    ],
     features: [
       { name: 'Площадь', value: '32 кв.м.' },
       { name: 'Количество мест', value: '2' },
@@ -21,33 +28,30 @@ const roomsData = [
     priceWeekdays: '12 900',
     priceWeekend: '14 900',
   },
-  { id: 'luxe', label: 'Люкс', title: 'Номер Люкс', features: [{ name: 'Площадь', value: '45 кв.м.' }], priceWeekdays: '16 900', priceWeekend: '19 900' },
-  { id: 'house1', label: 'Дом 1', title: 'A-Frame Дом 1', features: [{ name: 'Площадь', value: '56 кв.м.' }], priceWeekdays: '22 900', priceWeekend: '25 900' },
-  { id: 'house2', label: 'Дом 2', title: 'Scandi Дом 2', features: [{ name: 'Площадь', value: '56 кв.м.' }], priceWeekdays: '22 900', priceWeekend: '25 900' },
-  { id: 'house3', label: 'Дом 3', title: 'Scandi Дом 3', features: [{ name: 'Площадь', value: '56 кв.м.' }], priceWeekdays: '22 900', priceWeekend: '25 900' },
-  { id: 'house4', label: 'Дом 4', title: 'Barnhouse Дом 4', features: [{ name: 'Площадь', value: '70 кв.м.' }], priceWeekdays: '28 900', priceWeekend: '32 900' },
-  { id: 'house5', label: 'Дом 5', title: 'Barnhouse Дом 5', features: [{ name: 'Площадь', value: '70 кв.м.' }], priceWeekdays: '28 900', priceWeekend: '32 900' },
+  {
+    id: 'luxe',
+    label: 'Люкс',
+    title: 'Номер Люкс',
+    images: [
+      { id: 1, color: 'from-[#4A3B32] to-[#2D241E]', title: 'Гостиная Люкс', tag: 'Lounge' },
+      { id: 2, color: 'from-[#1F2E35] to-[#111A1E]', title: 'Терраса номера', tag: 'Terrace' },
+    ],
+    features: [{ name: 'Площадь', value: '45 кв.м.' }],
+    priceWeekdays: '16 900',
+    priceWeekend: '19 900'
+  },
+  { id: 'house1', label: 'Дом 1', title: 'A-Frame Дом 1', images: [{ id: 1, color: 'from-[#232B38] to-[#141923]', title: 'A-Frame Фасад', tag: 'Exterior' }], features: [{ name: 'Площадь', value: '56 кв.м.' }], priceWeekdays: '22 900', priceWeekend: '25 900' },
+  { id: 'house2', label: 'Дом 2', title: 'Scandi Дом 2', images: [{ id: 1, color: 'from-[#373A36] to-[#212421]', title: 'Сканди Интерьер', tag: 'Scandi' }], features: [{ name: 'Площадь', value: '56 кв.м.' }], priceWeekdays: '22 900', priceWeekend: '25 900' },
+  { id: 'house3', label: 'Дом 3', title: 'Scandi Дом 3', images: [{ id: 1, color: 'from-[#2C3E35] to-[#1A2621]', title: 'Сканди Гостиная', tag: 'Scandi' }], features: [{ name: 'Площадь', value: '56 кв.м.' }], priceWeekdays: '22 900', priceWeekend: '25 900' },
+  { id: 'house4', label: 'Дом 4', title: 'Barnhouse Дом 4', images: [{ id: 1, color: 'from-[#42313A] to-[#261B21]', title: 'Барнхаус Кухня', tag: 'Barnhouse' }], features: [{ name: 'Площадь', value: '70 кв.м.' }], priceWeekdays: '28 900', priceWeekend: '32 900' },
+  { id: 'house5', label: 'Дом 5', title: 'Barnhouse Дом 5', images: [{ id: 1, color: 'from-[#1F2E35] to-[#111A1E]', title: 'Барнхаус Спальня', tag: 'Barnhouse' }], features: [{ name: 'Площадь', value: '70 кв.м.' }], priceWeekdays: '28 900', priceWeekend: '32 900' },
 ];
 
 export default function Accommodation() {
   const [activeTab, setActiveTab] = useState(roomsData[0]);
-  const [currentImgIndex, setCurrentImgIndex] = useState(0);
-
-  const placeholderImages = ['bg-stone-300', 'bg-stone-400', 'bg-stone-500'];
-
-  const nextSlide = (e) => {
-    e.stopPropagation();
-    setCurrentImgIndex((prev) => (prev + 1) % placeholderImages.length);
-  };
-
-  const prevSlide = (e) => {
-    e.stopPropagation();
-    setCurrentImgIndex((prev) => (prev - 1 + placeholderImages.length) % placeholderImages.length);
-  };
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
-    setCurrentImgIndex(0);
   };
 
   return (
@@ -58,7 +62,7 @@ export default function Accommodation() {
           Проживание
         </h2>
 
-        {/* КАПСУЛА-РАМКА ИЗ МАКЕТА */}
+        {/* КАПСУЛА-РАМКА ТАБОВ */}
         <div className="w-full overflow-x-auto no-scrollbar border border-brand-dark rounded-xl md:rounded-2xl p-0 mb-12 md:mb-16 bg-transparent relative z-10">
           <div className="flex items-center min-w-max md:min-w-0 w-full justify-between relative">
 
@@ -81,7 +85,7 @@ export default function Accommodation() {
                     ${isActive ? 'text-white' : 'text-brand-dark/80 hover:text-brand-dark'}
                   `}
                 >
-                  {/* УМНАЯ ПИЛЮЛЯ С ДИНАМИЧЕСКИМИ УГЛАМИ */}
+                  {/* СМАРТ-ПИЛЮЛЯ */}
                   {isActive && (
                     <motion.div
                       layoutId="smartLuxuryTab"
@@ -113,7 +117,7 @@ export default function Accommodation() {
           </div>
         </div>
 
-        {/* КОНТЕНТ БЛОКА */}
+        {/* КОНТЕНТ БЛОКА С АНИМАЦИЕЙ СМЕНЫ НОМЕРА */}
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab.id}
@@ -124,34 +128,16 @@ export default function Accommodation() {
             className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 lg:gap-16 items-start"
           >
 
-            {/* МИНИ-СЛАЙДЕР */}
-            <div className="relative w-full lg:col-span-6 aspect-[1.42] rounded-2xl md:rounded-3xl overflow-hidden bg-stone-100 group shadow-sm">
-              <div className={`w-full h-full ${placeholderImages[currentImgIndex]} transition-colors duration-500 flex items-center justify-center text-stone-500 font-mono text-xs`}>
-                [ Изображение {currentImgIndex + 1} ]
-              </div>
-
-              <button
-                onClick={prevSlide}
-                className="absolute left-4 top-1/2 -translate-y-1/2 w-8 h-12 flex items-center justify-center text-white/70 hover:text-white transition-colors cursor-pointer z-10"
-                aria-label="Назад"
-              >
-                <svg className="w-6 h-6 stroke-current fill-none" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
-
-              <button
-                onClick={nextSlide}
-                className="absolute right-4 top-1/2 -translate-y-1/2 w-8 h-12 flex items-center justify-center text-white/70 hover:text-white transition-colors cursor-pointer z-10"
-                aria-label="Вперед"
-              >
-                <svg className="w-6 h-6 stroke-current fill-none" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
+            {/* ЛЕВАЯ КОЛОНКА: ИНТЕГРИРОВАННЫЙ АВТОНОМНЫЙ СЛАЙДЕР */}
+            <div className="w-full lg:col-span-6 rounded-2xl md:rounded-3xl overflow-hidden shadow-sm border border-stone-200/40">
+              {/* Передаем только картинки конкретного активного таба. Панели у слайдера отключаются сами, padding убран */}
+              <PremiumSlider
+                items={activeTab.images}
+                sliderClassName="w-full aspect-[1.42]"
+              />
             </div>
 
-            {/* ИНФОРМАЦИЯ */}
+            {/* ПРАВАЯ КОЛОНКА: ИНФОРМАЦИЯ О НОМЕРЕ */}
             <div className="flex flex-col lg:col-span-6 h-full justify-between py-1">
               <div>
                 <h3 className="font-medium text-2xl md:text-3xl tracking-tight text-brand-dark mb-6">
@@ -197,10 +183,8 @@ export default function Accommodation() {
                 </div>
               </div>
 
-              {/* КНОПКИ ДЕЙСТВИЯ (ИНТЕГРИРОВАЛИ ИМПОРТНЫЙ КОМПОНЕНТ) */}
+              {/* КНОПКИ ДЕЙСТВИЯ */}
               <div className="flex items-center gap-4 mt-4 lg:mt-8 w-full md:w-auto">
-
-                {/* Кнопка "Забронировать" */}
                 <AnimatedButton
                   href={`#book-${activeTab.id}`}
                   variant="dark"
@@ -210,8 +194,6 @@ export default function Accommodation() {
                   Забронировать
                 </AnimatedButton>
 
-                {/* Кнопка "Подробнее" */}
-                {/* Используем кастомные стили поверх, чтобы сделать красивую прозрачную кнопку с рамкой */}
                 <AnimatedButton
                   href={`/rooms/${activeTab.id}`}
                   variant="light"
@@ -220,7 +202,6 @@ export default function Accommodation() {
                 >
                   Подробнее
                 </AnimatedButton>
-
               </div>
 
             </div>
