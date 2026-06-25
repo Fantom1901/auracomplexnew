@@ -2,8 +2,8 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import interiorImg from '../../../public/assets/interior.png'; // Твоя интерьерная фотка (как слева на изображение_4.jpg)
-
+import interiorImg from '../../../public/assets/interior.png';
+import AnimatedButton from '@/components/buttons/AnimatedButton';
 export default function CertificateSection() {
   const handleOrderClick = () => {
     console.log('Открытие модального окна оформления сертификата');
@@ -69,15 +69,12 @@ export default function CertificateSection() {
           {/* НИЖНЯЯ ИНТЕРАКТИВНАЯ ПАНЕЛЬ С КНОПКОЙ И ТЕГАМИ */}
           <div className="w-full flex flex-col sm:flex-row lg:flex-col xl:flex-row items-start sm:items-center lg:items-start xl:items-center justify-between gap-6 pt-8 border-t border-brand-white/10">
 
-            {/* Кнопка действия */}
-            <motion.button
+            <AnimatedButton
+              variant="light"
               onClick={handleOrderClick}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="px-8 py-4 bg-brand-white text-brand-dark rounded-full text-sm font-medium tracking-wide shadow-lg hover:bg-stone-100 transition-colors duration-300 w-full sm:w-auto text-center"
-            >
-              Оформить сертификать
-            </motion.button>
+              animation="shimmer"
+            >Оформить сертификат
+            </AnimatedButton>
 
             {/* Аккуратные теги форматов вместо развесистого нижнего текста */}
             <div className="flex flex-wrap gap-2">

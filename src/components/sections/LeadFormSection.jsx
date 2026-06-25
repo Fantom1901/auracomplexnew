@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiCalendar } from 'react-icons/fi';
+import AnimatedButton from "@/components/buttons/AnimatedButton";
 
 export default function LeadFormSection() {
   const [formData, setFormData] = useState({
@@ -188,16 +188,10 @@ export default function LeadFormSection() {
             )}
           </AnimatePresence>
 
-          {/* Кнопка */}
-          <motion.button
-            type="submit"
-            disabled={status.type === 'loading'}
-            whileHover={{ scale: status.type === 'loading' ? 1 : 1.01 }}
-            whileTap={{ scale: status.type === 'loading' ? 1 : 0.99 }}
-            className="w-full mt-2 py-4 bg-[#304340] text-white rounded-[16px] text-base font-medium tracking-wide shadow-lg hover:bg-[#253432] transition-colors duration-300 text-center cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            Отправить заявку
-          </motion.button>
+          <AnimatedButton
+          >Отправить заявку
+          </AnimatedButton>
+
 
         </form>
 
