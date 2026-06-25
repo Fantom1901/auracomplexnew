@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import Logo from '@/components/Logo';
 import NavLink from '@/components/buttons/NavLink';
 
-export default function Header({ isOpen, setIsOpen, menuItems }) {
+export default function Header({ isOpen, setIsOpen, menuItems, shiftClasses = '', transitionClasses = '' }) {
   const headerVariants = {
     initial: { y: -100, opacity: 0 },
     animate: {
@@ -15,7 +15,7 @@ export default function Header({ isOpen, setIsOpen, menuItems }) {
   };
 
   return (
-    <div className={`fixed top-3 inset-x-0 px-4 md:px-20 z-50 pointer-events-none ${shiftClasses} ${transitionClasses}`}>
+    <div className={`fixed top-3 left-0 right-0 w-full max-w-[100vw] px-4 md:px-20 z-50 pointer-events-none box-border ${shiftClasses} ${transitionClasses}`}>
       <div className="max-w-7xl mx-auto w-full relative pointer-events-auto">
         <motion.header
           variants={headerVariants}

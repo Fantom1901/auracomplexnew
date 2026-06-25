@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import Header from '@/components/sections/Header';
 import MobileMenu from '@/components/sections/MobileMenu';
 
@@ -28,17 +27,14 @@ export default function TelegramMenuWrapper({ children, menuItems }) {
     <>
       <MobileMenu isOpen={isOpen} setIsOpen={setIsOpen} menuItems={menuItems} />
 
-      {/* ШАПКА ТЕПЕРЬ ТУТ: Она снаружи сдвигаемого контейнера, но управляется тем же классом */}
       <Header
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         menuItems={menuItems}
-        // Передаем классы трансформации, чтобы шапка тоже уезжала
         shiftClasses={shiftClasses}
         transitionClasses={transitionClasses}
       />
 
-      {/* КОНТЕНТ ЛЕНДИНГА */}
       <div className={`w-full min-h-screen bg-light-bg shadow-[[-20px_0_50px_rgba(0,0,0,0.4)]] relative z-30 will-change-transform ${transitionClasses} ${shiftClasses}`}>
         {children}
       </div>
