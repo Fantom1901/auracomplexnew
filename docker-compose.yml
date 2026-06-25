@@ -1,0 +1,11 @@
+services:
+  aura-app:
+    container_name: aura-next-server
+    build:
+      context: .
+      dockerfile: Dockerfile
+      network: host # <-- Магия для проброса интернета на этапе сборки
+    network_mode: "host" # <-- Магия для самого контейнера при старте
+    restart: always
+    environment:
+      - NODE_ENV=production

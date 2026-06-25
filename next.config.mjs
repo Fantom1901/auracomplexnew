@@ -1,9 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // basePath: '/auracomplexnew',
-  images: {
-    unoptimized: true, // Обязательно для статического экспорта
-  },
+  output: 'standalone',
 };
 
 export default nextConfig;
