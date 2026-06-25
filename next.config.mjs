@@ -1,10 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // basePath: '/auracomplexnew',
+
   output: 'export',
   images: {
-    unoptimized: true,
+    unoptimized: true, // Обязательно для статического экспорта
   },
-  basePath: '/auracomplexnew', // Добавили эту строку!
 };
 
 export default nextConfig;
