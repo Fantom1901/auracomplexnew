@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import AnimatedButton from '../buttons/AnimatedButton';
-// Импортируем наш переиспользуемый слайдер
+// ... Переиспользуемый слайдер
 import PremiumSlider from '@/components/sliders/PremiumSlider';
 
 const roomsData = [
@@ -11,7 +11,6 @@ const roomsData = [
     id: 'comfort',
     label: 'Комфорт',
     title: 'Номер Комфорт',
-    // Кастомные градиенты-заглушки (заменишь потом на реальные URL картинок, если нужно)
     images: [
       { id: 1, color: 'from-[#2C3E35] to-[#1A2621]', title: 'Спальная зона комфорт', tag: 'Interior' },
       { id: 2, color: 'from-[#3A3238] to-[#251F24]', title: 'Ванная комната', tag: 'Bathroom' },
@@ -130,7 +129,6 @@ export default function Accommodation() {
 
             {/* ЛЕВАЯ КОЛОНКА: ИНТЕГРИРОВАННЫЙ АВТОНОМНЫЙ СЛАЙДЕР */}
             <div className="w-full lg:col-span-6 rounded-2xl md:rounded-3xl overflow-hidden shadow-sm border border-stone-200/40">
-              {/* Передаем только картинки конкретного активного таба. Панели у слайдера отключаются сами, padding убран */}
               <PremiumSlider
                 items={activeTab.images}
                 sliderClassName="w-full aspect-[1.42]"
@@ -186,7 +184,9 @@ export default function Accommodation() {
               {/* КНОПКИ ДЕЙСТВИЯ */}
               <div className="flex items-center gap-4 mt-4 lg:mt-8 w-full md:w-auto">
                 <AnimatedButton
-                  href={`#book-${activeTab.id}`}
+                  href="https://auracomplex.mehotel.ru/widget"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   variant="dark"
                   size="md"
                   className="flex-1 md:flex-none text-center justify-center rounded-xl font-medium"
