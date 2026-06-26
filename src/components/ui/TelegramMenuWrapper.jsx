@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Header from '@/components/sections/Header';
-import MobileMenu from '@/components/sections/MobileMenu';
+import Header from '@/components/layout/Header';
+import MobileMenu from '@/components/layout/MobileMenu';
 
 export default function TelegramMenuWrapper({ children, menuItems }) {
   const [isOpen, setIsOpen] = useState(false);

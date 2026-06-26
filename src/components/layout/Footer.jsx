@@ -1,6 +1,6 @@
 'use client';
 
-import NavLink from '@/components/buttons/NavLink';
+import NavLink from '@/components/ui/buttons/NavLink';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -18,7 +18,7 @@ export default function Footer() {
               Меню
             </h4>
             <nav className="flex flex-col gap-2.5 text-base font-normal text-white/80 items-start">
-              <NavLink href="/" isMobile={true} className="hover:text-white text-white/80">Главная</NavLink>
+              <NavLink href="/app/public" isMobile={true} className="hover:text-white text-white/80">Главная</NavLink>
               <NavLink href="/rooms" isMobile={true} className="hover:text-white text-white/80">Проживание</NavLink>
               <NavLink href="/restaurant" isMobile={true} className="hover:text-white text-white/80">Ресторан</NavLink>
               <NavLink href="/bany" isMobile={true} className="hover:text-white text-white/80">Бани</NavLink>
@@ -34,13 +34,13 @@ export default function Footer() {
             </h4>
             <div className="flex flex-col gap-2.5 text-base font-normal text-white/80 items-start">
               <NavLink className="hover:text-white text-white/80">
-                <a href="/docs/oferta.pdf" target="_blank" rel="noopener noreferrer">Договор оферты</a>
+                <a href="https://clck.ru/3TuBjW" target="_blank" rel="noopener noreferrer">Договор оферты</a>
               </NavLink>
               <NavLink className="hover:text-white text-white/80">
                 <a href="/docs/booking-terms.pdf" target="_blank" rel="noopener noreferrer">Условия бронирования</a>
               </NavLink>
               <NavLink className="hover:text-white text-white/80">
-                <a href="/docs/rules.pdf" target="_blank" rel="noopener noreferrer">Правила проживания</a>
+                <a href="/rules" rel="noopener noreferrer">Правила проживания</a>
               </NavLink>
               <NavLink className="hover:text-white text-white/80">
                 <a href="/privacy" className="text-lg/0.5">Политика <br/> конфиденциальности</a>

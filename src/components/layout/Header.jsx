@@ -1,8 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Logo from '@/components/Logo';
-import NavLink from '@/components/buttons/NavLink';
+import Logo from '@/components/ui/Logo';
+import NavLink from '@/components/ui/buttons/NavLink';
 
 export default function Header({ isOpen, setIsOpen, menuItems, shiftClasses = '', transitionClasses = '' }) {
   const headerVariants = {

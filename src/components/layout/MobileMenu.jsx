@@ -1,9 +1,9 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Logo from '@/components/Logo';
-import AnimatedButton from '@/components/buttons/AnimatedButton';
-import NavLink from '@/components/buttons/NavLink';
+import Logo from '@/components/ui/Logo';
+import AnimatedButton from '@/components/ui/buttons/AnimatedButton';
+import NavLink from '@/components/ui/buttons/NavLink';
 import { FaTelegram, FaVk, FaOdnoklassniki } from 'react-icons/fa';
 
 // Убрали из пропсов sharedTransition, настраиваем строго здесь
