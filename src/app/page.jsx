@@ -1,16 +1,16 @@
-import Hero from "@/components/sections/Hero"
-import {About} from "@/components/sections/About"
-import CatalogSlider from "@/components/sections/CatalogSlider";
-import Accommodation from "@/components/sections/Accommodation";
-import Services from "@/components/sections/Services";
-import Restaurant from "@/components/sections/Restaurant";
-import Gallery from "@/components/sections/Gallery";
-import MapSection from "@/components/sections/MapSection";
-import CertificateSection from "@/components/sections/CertificateSection";
-import FaqSection from "@/components/sections/FaqSection";
-import LeadFormSection from "@/components/sections/LeadFormSection";
-import ContactsSection from "@/components/sections/ContactsSection";
-import Footer from "@/components/sections/Footer";
+import Hero from "@/components/sections/home/Hero"
+import {About} from "@/components/sections/home/About"
+import CatalogSlider from "@/components/modules/CatalogSlider";
+import Accommodation from "@/components/sections/home/Accommodation";
+import Services from "@/components/sections/home/Services";
+import Restaurant from "@/components/sections/home/Restaurant";
+import Gallery from "@/components/sections/home/Gallery";
+import MapSection from "@/components/shared/MapSection";
+import CertificateSection from "@/components/shared/CertificateSection";
+import FaqSection from "@/components/sections/home/FaqSection";
+import LeadFormSection from "@/components/shared/LeadFormSection";
+import ContactsSection from "@/components/shared/ContactsSection";
+import Footer from "@/components/layout/Footer";
 
 export default function Home() {
   return (
@@ -26,8 +26,6 @@ export default function Home() {
       <CertificateSection/>
       <FaqSection/>
       <LeadFormSection/>
-      <ContactsSection/>
-      <Footer/>
     </>
   );
 }

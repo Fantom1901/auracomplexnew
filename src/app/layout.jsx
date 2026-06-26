@@ -1,5 +1,7 @@
 import localFont from 'next/font/local';
-import TelegramMenuWrapper from '@/components/TelegramMenuWrapper';
+import TelegramMenuWrapper from '@/components/ui/TelegramMenuWrapper';
+import ContactsSection from '@/components/shared/ContactsSection'
+import Footer from '@/components/layout/Footer'; // Импортируем футер
 import './globals.css';
 
 const atypText = localFont({
@@ -18,9 +20,9 @@ export const metadata = {
 
 const menuItems = [
   { name: 'Проживание', href: '/accommodation' },
+  { name: 'Бани', href: '/banya' },
   { name: 'Ресторан', href: '/restaurant' },
   { name: 'Услуги', href: '/services' },
-  { name: 'Бани', href: '/banya' },
   { name: 'Прайс', href: '/price' },
 ];
 
@@ -29,9 +31,14 @@ export default function RootLayout({ children, modal }) {
     <html lang="ru">
     <body className={`${atypText.variable} antialiased bg-stone-950 relative min-h-screen w-full overflow-x-hidden`}>
 
-    {/* Оборачиваем контент в интерактивный клиентский слой */}
     <TelegramMenuWrapper menuItems={menuItems}>
-      {children}
+      <main className="w-full relative z-10 flex flex-col min-h-screen">
+        <div className="flex-grow">
+          {children}
+        </div>
+        <ContactsSection />
+        <Footer />
+      </main>
     </TelegramMenuWrapper>
 
     {/* Слот для модальных окон (Intercepting Routes) */}
