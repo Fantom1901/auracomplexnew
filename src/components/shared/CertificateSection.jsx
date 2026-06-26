@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import interiorImg from '../../../public/assets/interior.png';
-import AnimatedButton from '@/components/buttons/AnimatedButton';
+import AnimatedButton from '@/components/ui/buttons/AnimatedButton';
 export default function CertificateSection() {
 
 

@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+// Импортируем твой скрипт генерации
+import { getDeterministicPalette } from '@/lib/utils/gradientGenerator';
 
 const galleryVariants = {
   enter: { opacity: 0 },
@@ -19,7 +21,6 @@ const getValidIndex = (page, total) => {
   return ((page % total) + total) % total;
 };
 
-// sliderClassName принимает любые размеры, высоты и аспекты снаружи
 export default function PremiumSlider({ items = [], title, sectionTag, sliderClassName = '' }) {
   const [page, setPage] = useState(0);
 
@@ -28,6 +29,9 @@ export default function PremiumSlider({ items = [], title, sectionTag, sliderCla
   const activeIndex = getValidIndex(page, items.length);
   const currentItem = items[activeIndex];
   const isStandalone = !title;
+
+  // Генерируем палитру на основе уникального названия слайда (title)
+  const palette = getDeterministicPalette(currentItem.title);
 
   const paginate = (newDirection) => {
     setPage((prev) => prev + newDirection);
@@ -59,7 +63,6 @@ export default function PremiumSlider({ items = [], title, sectionTag, sliderCla
       )}
 
       {/* ГЛАВНЫЙ ЭКРАН СЛАЙДЕРА */}
-      {/* Никакого хардкода: только базовые стили, а размеры полностью управляются через sliderClassName */}
       <div className={`w-full relative rounded-[24px] md:rounded-[40px] overflow-hidden shadow-[0_40px_90px_rgba(0,0,0,0.07)] border border-stone-200/40 bg-stone-950 ${sliderClassName}`}>
 
         {/* АНИМИРОВАННЫЙ СЛОЙ */}
@@ -72,9 +75,19 @@ export default function PremiumSlider({ items = [], title, sectionTag, sliderCla
             exit="exit"
             className="absolute inset-0 w-full h-full flex flex-col justify-end items-start p-6 md:p-12 select-none overflow-hidden"
           >
-            {/* БЭКГРАУНД */}
-            <div className={`absolute inset-0 z-0 bg-gradient-to-br ${currentItem.color}`}>
-              <div className="absolute -top-20 -right-20 w-96 h-96 rounded-full bg-white/[0.02] blur-3xl pointer-events-none" />
+            {/* БЭКГРАУНД С ИНЛАЙН СТИЛЯМИ ИЗ СКРИПТА */}
+            <div
+              className="absolute inset-0 z-0 transition-colors duration-500"
+              style={{
+                // Создаем красивый темный градиент на основе базового цвета bg
+                background: `linear-gradient(135deg, ${palette.bg} 0%, #0d1312 100%)`
+              }}
+            >
+              {/* Верхний правый блик теперь светится динамическим цветом glow */}
+              <div
+                className="absolute -top-20 -right-20 w-96 h-96 rounded-full blur-3xl opacity-30 pointer-events-none transition-colors duration-500"
+                style={{ backgroundColor: palette.glow }}
+              />
               <div className="absolute -bottom-10 left-1/3 w-80 h-80 rounded-full bg-black/[0.15] blur-2xl pointer-events-none" />
               <div className="absolute inset-0 bg-[radial-gradient(transparent_50%,rgba(0,0,0,0.3))] opacity-60 mix-blend-multiply" />
             </div>

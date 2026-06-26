@@ -3,12 +3,12 @@
 import { useRef } from 'react';
 import Image from 'next/image';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-import Button from '@/components/buttons/SolidButton';
+import Button from '@/components/ui/buttons/SolidButton';
 
-import auraPool from '../../../public/assets/auraPool.jpg';
-import banyaImg from '../../../public/assets/banya.png';
-import kidsImg from '../../../public/assets/kids.jpg';
-import playgroundImg from '../../../public/assets/playground.jpg';
+import auraPool from '../../../../public/assets/auraPool.jpg';
+import banyaImg from '../../../../public/assets/banya.png';
+import kidsImg from '../../../../public/assets/kids.jpg';
+import playgroundImg from '../../../../public/assets/playground.jpg';
 
 const servicesData = [
   {

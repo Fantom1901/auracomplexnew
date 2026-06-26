@@ -3,8 +3,8 @@
 import Image from 'next/image';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { useRef } from 'react';
-import heroImg from '../../../public/assets/HeroImage.webp';
-import AnimatedButton from '@/components/buttons/AnimatedButton';
+import heroImg from '../../../../public/assets/HeroImage.webp';
+import AnimatedButton from '@/components/ui/buttons/AnimatedButton';
 
 export default function Hero() {
   const containerRef = useRef(null);

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import AnimatedButton from "@/components/buttons/AnimatedButton";
+import AnimatedButton from "@/components/ui/buttons/AnimatedButton";
 
 export default function LeadFormSection() {
   const [formData, setFormData] = useState({

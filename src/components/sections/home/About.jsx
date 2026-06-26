@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import aboutImg from '../../../public/assets/noroot.png';
+import aboutImg from '../../../../public/assets/noroot.png';
 
 export function About() {
   const containerRef = useRef(null);

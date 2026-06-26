@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import AnimatedButton from '../buttons/AnimatedButton';
-// ... Переиспользуемый слайдер
-import PremiumSlider from '@/components/sliders/PremiumSlider';
+import AnimatedButton from '@/components/ui/buttons/AnimatedButton';
+import PremiumSlider from '@/components/modules/PremiumSlider';
+import CapsuleTabBar from '@/components/ui/CapsuleTabBar';
 
 const roomsData = [
   {
@@ -49,10 +49,6 @@ const roomsData = [
 export default function Accommodation() {
   const [activeTab, setActiveTab] = useState(roomsData[0]);
 
-  const handleTabChange = (tab) => {
-    setActiveTab(tab);
-  };
-
   return (
     <section className="w-full bg-light-bg text-brand-dark py-20 md:py-32 select-none">
       <div className="w-full px-4 md:px-20 max-w-7xl mx-auto">
@@ -61,62 +57,14 @@ export default function Accommodation() {
           Проживание
         </h2>
 
-        {/* КАПСУЛА-РАМКА ТАБОВ */}
-        <div className="w-full overflow-x-auto no-scrollbar border border-brand-dark rounded-xl md:rounded-2xl p-0 mb-12 md:mb-16 bg-transparent relative z-10">
-          <div className="flex items-center min-w-max md:min-w-0 w-full justify-between relative">
+        {/* Переиспользуемый док-бар */}
+        <CapsuleTabBar
+          tabs={roomsData}
+          activeId={activeTab.id}
+          onChange={setActiveTab}
+          layoutId="homeAccommodationTabs"
+        />
 
-            {roomsData.map((tab, index) => {
-              const isActive = tab.id === activeTab.id;
-              const isFirst = index === 0;
-              const isLast = index === roomsData.length - 1;
-
-              const borderTopLeft = isFirst ? '12px' : '0px';
-              const borderBottomLeft = isFirst ? '12px' : '0px';
-              const borderTopRight = isLast ? '12px' : '0px';
-              const borderBottomRight = isLast ? '12px' : '0px';
-
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => handleTabChange(tab)}
-                  className={`
-                    relative px-4 md:px-6 py-3.5 text-xs md:text-sm font-medium tracking-tight transition-colors duration-200 core-touch flex-1 text-center min-w-[95px] md:min-w-0 cursor-pointer
-                    ${isActive ? 'text-white' : 'text-brand-dark/80 hover:text-brand-dark'}
-                  `}
-                >
-                  {/* СМАРТ-ПИЛЮЛЯ */}
-                  {isActive && (
-                    <motion.div
-                      layoutId="smartLuxuryTab"
-                      className="absolute inset-0 bg-[#243431] -z-10"
-                      initial={{
-                        borderTopLeftRadius: borderTopLeft,
-                        borderBottomLeftRadius: borderBottomLeft,
-                        borderTopRightRadius: borderTopRight,
-                        borderBottomRightRadius: borderBottomRight,
-                      }}
-                      animate={{
-                        borderTopLeftRadius: borderTopLeft,
-                        borderBottomLeftRadius: borderBottomLeft,
-                        borderTopRightRadius: borderTopRight,
-                        borderBottomRightRadius: borderBottomRight,
-                      }}
-                      transition={{ type: 'spring', stiffness: 320, damping: 30 }}
-                    />
-                  )}
-
-                  <span className="relative z-10">{tab.label}</span>
-
-                  {!isLast && !isActive && (roomsData[index + 1].id !== activeTab.id) && (
-                    <div className="absolute right-0 top-0 bottom-0 w-[1px] bg-brand-dark/40" />
-                  )}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* КОНТЕНТ БЛОКА С АНИМАЦИЕЙ СМЕНЫ НОМЕРА */}
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab.id}
@@ -126,8 +74,6 @@ export default function Accommodation() {
             transition={{ duration: 0.3, ease: 'easeInOut' }}
             className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 lg:gap-16 items-start"
           >
-
-            {/* ЛЕВАЯ КОЛОНКА: ИНТЕГРИРОВАННЫЙ АВТОНОМНЫЙ СЛАЙДЕР */}
             <div className="w-full lg:col-span-6 rounded-2xl md:rounded-3xl overflow-hidden shadow-sm border border-stone-200/40">
               <PremiumSlider
                 items={activeTab.images}
@@ -135,14 +81,12 @@ export default function Accommodation() {
               />
             </div>
 
-            {/* ПРАВАЯ КОЛОНКА: ИНФОРМАЦИЯ О НОМЕРЕ */}
             <div className="flex flex-col lg:col-span-6 h-full justify-between py-1">
               <div>
                 <h3 className="font-medium text-2xl md:text-3xl tracking-tight text-brand-dark mb-6">
                   {activeTab.title}
                 </h3>
 
-                {/* Пунктирные строчки */}
                 <div className="flex flex-col gap-3.5 mb-8">
                   {activeTab.features.map((feature, idx) => (
                     <div key={idx} className="flex justify-between items-end text-sm md:text-[15px]">
@@ -161,7 +105,6 @@ export default function Accommodation() {
                   ))}
                 </div>
 
-                {/* Цены */}
                 <div className="pt-2 mb-8 md:mb-10">
                   <span className="text-xs uppercase tracking-wider text-brand-dark/40 font-medium block mb-3">
                     Стоимость
@@ -181,7 +124,6 @@ export default function Accommodation() {
                 </div>
               </div>
 
-              {/* КНОПКИ ДЕЙСТВИЯ */}
               <div className="flex items-center gap-4 mt-4 lg:mt-8 w-full md:w-auto">
                 <AnimatedButton
                   href="https://auracomplex.mehotel.ru/widget"
@@ -203,9 +145,7 @@ export default function Accommodation() {
                   Подробнее
                 </AnimatedButton>
               </div>
-
             </div>
-
           </motion.div>
         </AnimatePresence>
 
