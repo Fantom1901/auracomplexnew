@@ -1,13 +1,18 @@
-import PlaceholderSection from '@/components/ui/PlaceholderSection';
+import PageWrapper from '@/components/layout/PageWrapper';
+import AccommodationSection from '@/components/sections/Accommodation/AccommodationSection';
+
+export const metadata = {
+  title: 'Элитные дома и номера для проживания на берегу Маны',
+  description: 'Выберите идеальный вариант для отдыха: премиум-виллы, уютные шале и комфортабельные номера с панорамными видами на скалы и реку.',
+};
 
 export default function AccommodationPage() {
   return (
-    <PlaceholderSection
-      title="Проживание"
-      tag="AURA Accommodation"
-      description="Страница находится в разработке. Здесь будет доступен выбор уютных дизайнерских номеров, видовых домиков и удобная система онлайн-бронирования для вашего безупречного отдыха."
-      backLink="/"
-      backLinkText="Вернуться на главную"
-    />
+    <main className="w-full min-h-screen bg-[#fbfbfb] overflow-x-hidden">
+      {/* Оборачиваем секцию во враппер и передаем заголовок страницы */}
+      <PageWrapper title="Проживание">
+        <AccommodationSection />
+      </PageWrapper>
+    </main>
   );
 }

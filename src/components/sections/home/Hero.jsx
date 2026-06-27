@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { useRef } from 'react';
-import heroImg from '../../../../public/assets/HeroImage.webp';
+import heroImg from '../../../../public/assets/HeroImage.png';
 import AnimatedButton from '@/components/ui/buttons/AnimatedButton';
 
 export default function Hero() {
@@ -48,6 +48,8 @@ export default function Hero() {
           alt="База отдыха Аура"
           priority
           fill
+          quality={90} // По умолчанию Next ставит 75. Для Hero-баннеров лучше бахнуть 90, чтобы убрать артефакты сжатия
+          sizes="100vw" // Явно говорим оптимизатору: "Бро, эта картинка ВСЕГДА занимает 100% ширины вьюпорта, не вздумай её урезать"
           className="object-cover"
         />
         <div className="absolute inset-0 bg-black/30" />

@@ -1,5 +1,5 @@
 // page.jsx
-import PageWrapper from '@/components/ui/PageWrapper';
+import PageWrapper from '@/components/layout/PageWrapper';
 import { RulesSidebar, RulesMainContent } from '@/components/modules/rules/RulesComponents';
 import {
   CHECK_IN_DATA,

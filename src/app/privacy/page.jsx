@@ -1,4 +1,4 @@
-import PageWrapper from '@/components/ui/PageWrapper';
+import PageWrapper from '@/components/layout/PageWrapper';
 import Link from 'next/link';
 
 export default function PrivacyPage() {
