@@ -18,8 +18,6 @@ const nextConfig = {
   },
   // ЖЕСТКО УКАЗЫВАЕМ СТАНДАРТ СБОРКИ ДЛЯ SWC
   experimental: {
-    // Говорим сборщику не пихать лишние полифилы core-js в клиентские чанки
-    legacyBrowsers: false,
   },
 };
 

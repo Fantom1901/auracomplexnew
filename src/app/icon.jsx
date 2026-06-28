@@ -1,6 +1,7 @@
 import { ImageResponse } from 'next/og';
-import { readFile } from 'fs/promises';
 import { join } from 'path';
+import path from 'path';
+import { readFile } from 'fs/promises';
 
 // Твои настройки разрешения
 export const size = {
@@ -11,7 +12,7 @@ export const contentType = 'image/png';
 
 export default async function Icon() {
   // Подтягиваем локальный шрифт
-  const fontPath = join(process.cwd(), 'src/app/fonts/AtypText-Medium.woff');
+  const fontPath = path.resolve(process.cwd(), 'public/fonts/AtypText-Medium.woff');
   const fontData = await readFile(fontPath);
 
   return new ImageResponse(
