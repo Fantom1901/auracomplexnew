@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import CapsuleTabBar from "@/components/ui/CapsuleTabBar";
+import CapsuleTabBar from "@/components/ui/navigation/CapsuleTabBar";
 import FadeInLayout from "@/components/layout/FadeInLayout";
-import PremiumSlider from "@/components/modules/PremiumSlider";
-import { GALLERY_TABS, GALLERY_DATA } from "@/app/restaurant/restaurant.config";
+import PremiumSlider from "@/components/features/PremiumSlider";
+
+// Тянем чистые данные из глобального слоя в корне проекта
+import { GALLERY_TABS, GALLERY_DATA } from "@/data/restaurant";
 
 export default function RestaurantGallerySection() {
   const [activeTab, setActiveTab] = useState(GALLERY_TABS[0]);

@@ -1,4 +1,4 @@
-import { MENU_DATA } from "@/app/restaurant/restaurant.config";
+import { MENU_DATA } from "@/data/restaurant";
 import { validateMenuConfig } from "@/lib/utils/checkFile";
 import RestaurantMenuModalClient from "./RestaurantMenuModalClient";
 

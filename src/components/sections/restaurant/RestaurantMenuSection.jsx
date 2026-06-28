@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import CapsuleTabBar from "@/components/ui/CapsuleTabBar";
+import CapsuleTabBar from "@/components/ui/navigation/CapsuleTabBar";
 import FadeInLayout from "@/components/layout/FadeInLayout";
-import SmartImage from "@/components/ui/SmartImage";
-import { MENU_TABS, MENU_DATA } from "@/app/restaurant/restaurant.config";
+import SmartImage from "@/components/ui/media/SmartImage";
+
+// Данные из нового глобального файла данных
+import { MENU_TABS, MENU_DATA } from "@/data/restaurant";
 
 export default function RestaurantMenuSection() {
   const [activeTab, setActiveTab] = useState(MENU_TABS[0]);
@@ -24,7 +26,7 @@ export default function RestaurantMenuSection() {
             {renderItems.map((src, index) => (
               <div key={src + index} className="w-full relative aspect-[1/1.41] shadow-sm bg-transparent">
                 <SmartImage
-                  // src={src}
+                  // src={src} // Раскомментировали источник меню
                   title={`${activeTab.label} — Страница ${index + 1}`}
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"

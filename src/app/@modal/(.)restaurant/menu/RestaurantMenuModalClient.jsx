@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { m } from "framer-motion";
 import RestaurantMenuSection from "@/components/sections/restaurant/RestaurantMenuSection";
-import CloseButton from "@/components/ui/CloseButton";
+import CloseButton from "@/components/ui/buttons/CloseButton";
 
 export default function RestaurantMenuModalClient({ validatedMenuData }) {
   const router = useRouter();

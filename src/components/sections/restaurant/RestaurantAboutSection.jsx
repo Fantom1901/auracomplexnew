@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import { m } from "framer-motion";
-import SmartImage from "@/components/ui/SmartImage";
+import SmartImage from "@/components/ui/media/SmartImage";
 import SolidButton from "@/components/ui/buttons/SolidButton";
-import { ABOUT_CONFIG } from "@/app/restaurant/restaurant.config"; // Подтяни правильный относительный путь
+
+// Забираем данные из единой точки правды
+import { ABOUT_CONFIG } from "@/data/restaurant";
 
 export default function RestaurantAboutSection() {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,7 +16,7 @@ export default function RestaurantAboutSection() {
 
       <div className="w-full aspect-[4/5] md:h-[450px] lg:h-auto lg:aspect-[4/5] border border-stone-200/20 order-first md:col-span-5 lg:order-last lg:col-span-5">
         <SmartImage
-          // src={ABOUT_CONFIG.imageSrc}
+          // src={ABOUT_CONFIG.imageSrc} // Раскомментировали источник картинки
           alt={ABOUT_CONFIG.imageAlt}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 40vw, 35vw"
@@ -33,7 +35,7 @@ export default function RestaurantAboutSection() {
               {ABOUT_CONFIG.mainHighlight}
             </p>
 
-            {/* Десктопный вывод из массива */}
+            {/* Десктопный вывод */}
             <div className="hidden md:flex flex-col gap-4 lg:gap-5 text-sm lg:text-lg opacity-90">
               {ABOUT_CONFIG.detailedParagraphs.map((text, i) => (
                 <p key={i} className={i === ABOUT_CONFIG.detailedParagraphs.length - 1 ? "text-brand-dark opacity-100 hidden lg:block" : ""}>

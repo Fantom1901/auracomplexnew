@@ -1,6 +1,6 @@
 'use client';
 
-import PremiumSlider from '@/components/modules/PremiumSlider';
+import PremiumSlider from '@/components/features/PremiumSlider';
 
 const mockImages = [
   { id: 1, title: 'Панорамный бассейн AURA', tag: 'Wellness & Spa' },
