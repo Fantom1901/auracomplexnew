@@ -6,7 +6,7 @@ import { m, useScroll, useTransform, useSpring } from 'framer-motion';
 import Button from '@/components/ui/buttons/SolidButton';
 
 import auraPool from '../../../../public/assets/auraPool.jpg';
-import banyaImg from '../../../../public/assets/banya.png';
+import banyaImg from '../../../../public/assets/banya.webp'; // Переключили на webp
 import kidsImg from '../../../../public/assets/kids.jpg';
 import playgroundImg from '../../../../public/assets/playground.jpg';
 
@@ -83,7 +83,8 @@ function ServiceCard({ service, index }) {
               alt={service.title}
               fill
               placeholder="blur"
-              sizes="(max-w: 768px) 100vw, 50vw"
+              quality={75} // Фиксируем оптимальное сжатие сервером
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 700px" // Починили синтаксис max-width и ограничили десктопную ширину
               className="object-cover"
               priority={index < 2}
             />
