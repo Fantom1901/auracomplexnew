@@ -3,7 +3,8 @@
 import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import { m, useScroll, useTransform } from 'framer-motion';
-import aboutImg from '../../../../public/assets/noroot.png';
+// Переключаемся на легковесный формат webp
+import aboutImg from '../../../../public/assets/noroot.webp';
 
 export function About() {
   const containerRef = useRef(null);
@@ -24,10 +25,8 @@ export function About() {
       setIsMobile(window.innerWidth < 768);
     };
 
-    // Проверяем при монтировании
     handleResize();
 
-    // Слушаем изменение экрана, чтобы анимация не ломалась при ресайзе
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -50,7 +49,6 @@ export function About() {
         viewport={{once: true, margin: "-100px"}}
         className="max-w-4xl mx-auto text-center px-6 mb-10 md:mb-20 flex flex-col items-center gap-5 md:gap-6"
       >
-        {/* Заголовок: На мобилке 32px/32px, на десктопе плавно переходит в твои 48px (text-5xl) с правильным leading */}
         <m.h2
           className="font-medium text-3xl md:text-5xl leading-8 md:leading-[56px] text-brand-dark tracking-tight will-change-[opacity,transform]"
           initial={{opacity: 0, y: 10}}
@@ -61,7 +59,6 @@ export function About() {
           О комплексе
         </m.h2>
 
-        {/* Основной text: На мобилке аккуратные 16px (text-base) для читаемости, на десктопе — твои крупные 20px (text-xl) */}
         <m.p
           className="font-normal text-base md:text-xl leading-6 md:leading-[27px] text-brand-dark/90 max-w-2xl px-1 will-change-[opacity,transform]"
           initial={{opacity: 0, y: 15}}
@@ -86,7 +83,6 @@ export function About() {
             will-change-transform
             rounded-[20px] md:rounded-[32px]
           "
-          /* Скругление: на мобилках дотягиваем до красивых 32px, на десктопе до премиальных 56px */
           whileInView={{
             borderRadius: targetBorderRadius
           }}
@@ -98,7 +94,8 @@ export function About() {
             alt="Атмосфера отдыха в Ауре"
             fill
             className="object-cover"
-            sizes="100vw"
+            quality={75} // Сжимаем до оптимального уровня
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1600px" // Ограничиваем максимальную ширину картинки
           />
         </m.div>
       </div>
