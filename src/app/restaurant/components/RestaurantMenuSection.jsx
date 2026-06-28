@@ -5,13 +5,16 @@ import CapsuleTabBar from "@/components/ui/navigation/CapsuleTabBar";
 import FadeInLayout from "@/components/layout/FadeInLayout";
 import SmartImage from "@/components/ui/media/SmartImage";
 
-// Данные из нового глобального файла данных
+// Данные из глобального файла данных
 import { MENU_TABS, MENU_DATA } from "@/data/restaurant";
 
-export default function RestaurantMenuSection() {
+export default function RestaurantMenuSection({ initialMenuData }) {
   const [activeTab, setActiveTab] = useState(MENU_TABS[0]);
 
-  const currentMenuImages = MENU_DATA[activeTab.id] || [];
+  // Используем переданные данные, либо фоллбэкаемся на глобальный MENU_DATA
+  const incomingData = initialMenuData || MENU_DATA;
+
+  const currentMenuImages = incomingData[activeTab.id] || [];
   const renderItems = currentMenuImages.length > 0 ? currentMenuImages : [""];
 
   return (
@@ -26,12 +29,12 @@ export default function RestaurantMenuSection() {
             {renderItems.map((src, index) => (
               <div key={src + index} className="w-full relative aspect-[1/1.41] shadow-sm bg-transparent">
                 <SmartImage
-                  // src={src} // Раскомментировали источник меню
+                  // src={src}
                   title={`${activeTab.label} — Страница ${index + 1}`}
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
                   priority={index < 2}
-                  className="bg-brand-dark/5 border border-stone-200/40 [&>img]:object-contain"
+                  className="bg-[#0d1312] border border-stone-200/40 [&>img]:object-contain"
                 />
               </div>
             ))}
