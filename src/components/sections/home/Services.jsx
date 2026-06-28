@@ -83,7 +83,7 @@ function ServiceCard({ service, index }) {
               alt={service.title}
               fill
               placeholder="blur"
-              quality={75} // Фиксируем оптимальное сжатие сервером
+              quality={65} // Фиксируем оптимальное сжатие сервером
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 700px" // Починили синтаксис max-width и ограничили десктопную ширину
               className="object-cover"
               priority={index < 2}

@@ -17,7 +17,6 @@ import img7 from '../../../public/assets/catalog/7.jpg';
 import img8 from '../../../public/assets/catalog/8.jpg';
 import img9 from '../../../public/assets/catalog/9.jpg';
 
-// ВОЗВРАЩЕН ИСХОДНЫЙ ПОРЯДОК СЛАЙДОВ
 const slides = [
   { id: 1, src: img4 },
   { id: 2, src: img2 },
@@ -142,7 +141,8 @@ export default function CatalogSlider() {
                   alt="Локация комплекса AURA"
                   fill
                   placeholder="blur"
-                  sizes="(max-width: 480px) 350px, (max-width: 768px) 450px, 480px"
+                  quality={70} // Зажимаем сильнее, для карусели 70% качества — с головой
+                  sizes="(max-width: 640px) 344px, (max-width: 1024px) 440px, 480px" // Жестко ограничили размеры под сетку
                   className="object-cover pointer-events-none"
                 />
 
@@ -193,7 +193,8 @@ export default function CatalogSlider() {
               >
                 <Image
                   src={activeImage}
-                  alt="Увеличенное фото локации"
+                  alt="Увеличенное foto локации"
+                  quality={85} // В модалке на весь экран возвращаем сочную детализацию
                   className="w-auto h-auto max-w-full max-h-[82vh] md:max-h-[88vh] object-contain rounded-lg md:rounded-xl shadow-2xl"
                 />
               </m.div>
