@@ -2,20 +2,16 @@
 
 import { useState } from 'react';
 import { AnimatePresence, m } from 'framer-motion';
-import AccommodationCard from '@/components/sections/Accommodation/AccommodationCard';
-import CapsuleTabBar from '@/components/ui/CapsuleTabBar';
-import accommodationData from '@/app/accommodation/accommodation.config.json';
+import AccommodationCard from './AccommodationCard'; // Лежит в этой же папке
+import CapsuleTabBar from '@/components/ui/navigation/CapsuleTabBar';
 
-const categories = [
-  { id: 'all', label: 'Все варианты' },
-  { id: 'rooms', label: 'Номера' },
-  { id: 'houses', label: 'Дома и Виллы' }
-];
+// Тянем чистые данные и категории из единого слоя
+import { ACCOMMODATION_DATA, categories } from '@/data/accommodation';
 
 export default function AccommodationSection() {
   const [activeCategory, setActiveCategory] = useState('all');
 
-  const filteredRooms = accommodationData.filter(room =>
+  const filteredRooms = ACCOMMODATION_DATA.filter(room =>
     activeCategory === 'all' || room.category === activeCategory
   );
 

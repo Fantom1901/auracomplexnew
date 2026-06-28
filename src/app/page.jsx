@@ -1,6 +1,6 @@
 import Hero from "@/components/sections/home/Hero"
 import {About} from "@/components/sections/home/About"
-import CatalogSlider from "@/components/modules/CatalogSlider";
+import CatalogSlider from "@/components/features/CatalogSlider";
 import Accommodation from "@/components/sections/home/Accommodation";
 import Services from "@/components/sections/home/Services";
 import Restaurant from "@/components/sections/home/Restaurant";

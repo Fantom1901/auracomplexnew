@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import { AnimatePresence, m } from 'framer-motion';
 import AnimatedButton from '@/components/ui/buttons/AnimatedButton';
-import PremiumSlider from '@/components/modules/PremiumSlider';
-import CapsuleTabBar from '@/components/ui/CapsuleTabBar';
+import PremiumSlider from '@/components/features/PremiumSlider';
+import CapsuleTabBar from '@/components/ui/navigation/CapsuleTabBar';
 
 const roomsData = [
   {

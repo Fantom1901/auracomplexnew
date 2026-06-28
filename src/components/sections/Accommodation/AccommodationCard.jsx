@@ -1,6 +1,6 @@
 "use client";
 
-import PremiumSlider from '@/components/modules/PremiumSlider';
+import PremiumSlider from '@/components/features/PremiumSlider';
 import AnimatedButton from '@/components/ui/buttons/AnimatedButton';
 
 export default function AccommodationCard({ room }) {
