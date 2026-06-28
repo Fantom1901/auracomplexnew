@@ -142,7 +142,7 @@ export default function CatalogSlider() {
                   alt="Локация комплекса AURA"
                   fill
                   placeholder="blur"
-                  sizes="(max-w-768px) 84vw, 480px"
+                  sizes="(max-width: 768px) 84vw, 480px" // <-- Исправлена опечатка max-w на max-width
                   className="object-cover pointer-events-none"
                 />
 

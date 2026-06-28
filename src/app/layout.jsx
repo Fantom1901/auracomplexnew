@@ -6,11 +6,13 @@ import './globals.css';
 
 const atypText = localFont({
   src: [
-    { path: './fonts/AtypText-Regular.woff', weight: '400', style: 'normal' },
-    { path: './fonts/AtypText-Medium.woff', weight: '500', style: 'normal' },
+    // Настоятельно рекомендую сконвертировать файлы в .woff2 и поменять расширение здесь:
+    { path: './fonts/AtypText-Regular.woff2', weight: '400', style: 'normal' },
+    { path: './fonts/AtypText-Medium.woff2', weight: '500', style: 'normal' },
   ],
   variable: '--font-atyp',
-  preload: false,
+  preload: true, // <-- Включаем предзагрузку, чтобы браузер качал шрифты сразу
+  display: 'swap', // <-- Текст рендерится дефолтным шрифтом моментально, не блокируя LCP
 });
 
 export const metadata = {
