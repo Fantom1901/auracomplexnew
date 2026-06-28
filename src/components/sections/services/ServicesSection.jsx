@@ -1,11 +1,12 @@
 "use client";
 
 import { useState } from 'react';
-import ServiceCard from '@/components/ui/ServiceCard';
-import CapsuleTabBar from '@/components/ui/CapsuleTabBar';
-import FadeInLayout from '@/components/layout/FadeInLayout'; // Наш единый стандарт анимации
+import ServiceCard from './ServiceCard'; // Лежит в этой же папке
+import CapsuleTabBar from '@/components/ui/navigation/CapsuleTabBar'; // Пофиксили пробел в пути
+import FadeInLayout from '@/components/layout/FadeInLayout';
 
-import { SERVICES_DATA, TABS } from '@/components/sections/price/services.config';
+// Тянем данные из единого глобального слоя данных
+import { SERVICES_DATA, TABS } from '@/data/servicesCatalog';
 
 export default function ServicesSection() {
   const [activeTabId, setActiveTabId] = useState('all-services');
@@ -38,6 +39,7 @@ export default function ServicesSection() {
               description={service.description}
               schedule={service.schedule}
               prices={service.prices}
+              imageSrc={service.imageSrc} // Не забываем прокинуть картинку, в старом коде её не было в мапе!
               showButton={service.showButton}
               onClick={() => console.log(`Клик по услуге: ${service.id}`)}
             />

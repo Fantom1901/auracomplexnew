@@ -1,5 +1,9 @@
+"use client";
+
 import PageWrapper from '@/components/layout/PageWrapper';
-import { RulesSidebar, RulesMainContent } from '@/components/modules/rules/RulesComponents';
+import { RulesSidebar, RulesMainContent } from '@/components/sections/rules/RulesComponents'; // Локальный импорт из этой же папки
+
+// Тянем чистые конфигурационные данные из глобального слоя
 import {
   CHECK_IN_DATA,
   AUTO_DATA,
@@ -7,7 +11,7 @@ import {
   RULES_SECTIONS,
   SAFETY_DATA,
   EXTERNAL_CONTACTS
-} from './rules.config';
+} from '@/data/rules';
 
 export default function RulesPage() {
   return (

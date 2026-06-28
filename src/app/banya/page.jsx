@@ -1,4 +1,4 @@
-import PlaceholderSection from '@/components/ui/PlaceholderSection';
+import PlaceholderSection from '@/components/ui/feedback/PlaceholderSection';
 
 export default function BanyaPage() {
   return (

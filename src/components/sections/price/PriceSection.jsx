@@ -1,18 +1,22 @@
 "use client";
 
 import { useState } from 'react';
-import { priceCategories, stayData, wellnessData, servicesData, stayNotes } from '@/app/price/data';
-import { PriceSection } from '@/components/ui/price/PriceComponents';
-import CapsuleTabBar from '@/components/ui/CapsuleTabBar';
-import FadeInLayout from '@/components/layout/FadeInLayout'; // Наш единый стандарт анимации
+import CapsuleTabBar from '@/components/ui/navigation/CapsuleTabBar';
+import FadeInLayout from '@/components/layout/FadeInLayout';
 
-export default function priceSection() {
+// Импортируем компоненты прайса, сохранённые в той же папке
+import { PriceSection } from './PriceComponents';
+
+// Тянем чистые данные из новой папки в корне проекта
+import { priceCategories, stayData, wellnessData, servicesData, stayNotes } from '@/data/priceData';
+
+export default function PriceMainSection() {
   const [activeTab, setActiveTab] = useState('stay');
 
   return (
     <div className="w-full text-[#304340]">
 
-      {/* Наш родной докбар с туманом */}
+      {/* Родной докбар с туманом */}
       <CapsuleTabBar
         tabs={priceCategories}
         activeId={activeTab}
@@ -30,7 +34,7 @@ export default function priceSection() {
             {stayData.map((sec) => (
               <PriceSection key={sec.title} title={sec.title} subtitle={sec.subtitle} items={sec.items} />
             ))}
-            {/* Текст примечаний: акценты строго по нашему правилу */}
+            {/* Текст примечаний */}
             <div className="mt-10 pt-6 border-t border-brand-dark/10 flex flex-col gap-2">
               {stayNotes.map((note, idx) => (
                 <p key={idx} className="text-xs md:text-sm text-brand-dark font-normal leading-relaxed opacity-40">
