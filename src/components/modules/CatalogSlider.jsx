@@ -138,12 +138,16 @@ export default function CatalogSlider() {
               >
                 {/* Убираем fill, ставим жесткие width/height и override-размеры */}
                 <Image
+                  loader={({ src, width, quality }) => {
+                    const customWidth = width <= 640 ? 384 : width;
+                    return `/_next/image?url=${encodeURIComponent(src)}&w=${customWidth}&q=${quality || 60}`;
+                  }}
                   src={slide.src}
                   alt="Локация комплекса AURA"
-                  width={384} // Ограничиваем базовую ширину генерируемого файла
-                  height={480} // Пропорционально aspect-[1024/1280] (0.8)
+                  width={384}
+                  height={480}
                   placeholder="blur"
-                  quality={60} // Зажимаем сильнее. Для карусели из 9 штук это критично
+                  quality={60}
                   sizes="(max-width: 640px) 344px, 440px"
                   className="w-full h-full object-cover pointer-events-none"
                 />
