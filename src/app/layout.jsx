@@ -1,18 +1,27 @@
 import localFont from 'next/font/local';
+import dynamic from 'next/dynamic';
+import { LazyMotion, domAnimation } from 'framer-motion'; // <-- Добавили сюда ленивую загрузку анимаций
 import TelegramMenuWrapper from '@/components/ui/TelegramMenuWrapper';
-import ContactsSection from '@/components/shared/ContactsSection'
-import Footer from '@/components/layout/Footer'; // Импортируем футер
 import './globals.css';
+
+const ContactsSection = dynamic(() => import('@/components/shared/ContactsSection'), {
+  ssr: true,
+  loading: () => <div className="w-full h-[500px] bg-stone-900 animate-pulse" />
+});
+
+const Footer = dynamic(() => import('@/components/layout/Footer'), {
+  ssr: true,
+  loading: () => <div className="w-full h-[400px] bg-[#304340]" />
+});
 
 const atypText = localFont({
   src: [
-    // Настоятельно рекомендую сконвертировать файлы в .woff2 и поменять расширение здесь:
     { path: './fonts/AtypText-Regular.woff2', weight: '400', style: 'normal' },
     { path: './fonts/AtypText-Medium.woff2', weight: '500', style: 'normal' },
   ],
   variable: '--font-atyp',
-  preload: true, // <-- Включаем предзагрузку, чтобы браузер качал шрифты сразу
-  display: 'swap', // <-- Текст рендерится дефолтным шрифтом моментально, не блокируя LCP
+  preload: true,
+  display: 'swap',
 });
 
 export const metadata = {
@@ -34,13 +43,16 @@ export default function RootLayout({ children, modal }) {
     <body className={`${atypText.variable} antialiased bg-stone-950 relative min-h-screen w-full overflow-x-hidden`}>
 
     <TelegramMenuWrapper menuItems={menuItems}>
-      <main className="w-full relative z-10 flex flex-col min-h-screen">
-        <div className="flex-grow">
-          {children}
-        </div>
-        <ContactsSection />
-        <Footer />
-      </main>
+      {/* Обернули всё приложение, чтобы m.div в табах заработал на минималках */}
+      <LazyMotion features={domAnimation}>
+        <main className="w-full relative z-10 flex flex-col min-h-screen">
+          <div className="flex-grow">
+            {children}
+          </div>
+          <ContactsSection />
+          <Footer />
+        </main>
+      </LazyMotion>
     </TelegramMenuWrapper>
 
     {/* Слот для модальных окон (Intercepting Routes) */}

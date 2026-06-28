@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion'; // <-- Заменили тяжелый motion на легковесный m
 import { useRef, useState, useEffect } from 'react';
 
 export default function CapsuleTabBar({
@@ -91,10 +91,7 @@ export default function CapsuleTabBar({
   return (
     <div className="relative w-full mb-12 md:mb-16">
 
-      {/* ГЛАВНЫЙ КОНТЕЙНЕР (ОБЁРТКА С БОРДЕРОМ):
-        Через инлайновые стили задаем маску, которая берёт значения `--left-fog-alpha` и `--right-fog-alpha`.
-        На десктопе (md:) маску полностью отключаем через Tailwind класс (`md:[mask-image:none]`).
-      */}
+      {/* ГЛАВНЫЙ КОНТЕЙНЕР (ОБЁРТКА С БОРДЕРОМ) */}
       <div
         ref={wrapperRef}
         className="w-full relative border border-brand-dark rounded-xl md:rounded-2xl p-1 bg-transparent z-10 [mask-image:linear-gradient(to_right,_rgba(0,0,0,calc(1_-_var(--left-fog-alpha,_0)))_0px,_#000_40px,_#000_calc(100%_-_40px),_rgba(0,0,0,calc(1_-_var(--right-fog-alpha,_0)))_100%)] md:[mask-image:none]"
@@ -111,9 +108,9 @@ export default function CapsuleTabBar({
         >
           <div className="flex items-center w-full justify-between relative min-w-max md:min-w-0">
 
-            {/* Плавающая пилюля с тенью */}
+            {/* Плавающая пилюля со сбросом веса через m.div */}
             {pillStyles.width > 0 && (
-              <motion.div
+              <m.div
                 className="absolute top-0 bottom-0 bg-[#243431] rounded-lg md:rounded-xl shadow-md shadow-[#243431]/25 -z-10"
                 style={{
                   left: 0,
