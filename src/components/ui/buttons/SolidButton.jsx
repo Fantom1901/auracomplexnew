@@ -4,8 +4,8 @@ import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 
-// Создаем анимированный компонент Link для Framer Motion
-const MotionLink = motion(Link);
+// Используем актуальный метод .create() вместо устаревшего вызова функции
+const MotionLink = motion.create(Link);
 
 export default function SolidButton({
                                       children,

@@ -38,9 +38,12 @@ export default function Hero() {
       ref={containerRef}
       className="relative w-full h-[85vh] xl:h-[90vh] overflow-hidden bg-stone-950"
     >
-      {/* Задний фон с эффектом мягкого параллакса */}
+      {/* ОБЕРТКА ФОНА: Чтобы SSR сразу отдавал картинку браузеру,
+        мы жестко задаем стиль для серверного рендеринга, который потом перехватит framer-motion
+      */}
       <motion.div
         style={{ y: backgroundY }}
+        initial={{ y: 0 }} // <-- Принудительный сброс для корректного SSR дерева
         className="absolute -inset-y-20 inset-x-0 z-0 will-change-transform"
       >
         <Image
@@ -48,19 +51,19 @@ export default function Hero() {
           alt="База отдыха Аура"
           priority
           fill
-          quality={90} // По умолчанию Next ставит 75. Для Hero-баннеров лучше бахнуть 90, чтобы убрать артефакты сжатия
-          sizes="100vw" // Явно говорим оптимизатору: "Бро, эта картинка ВСЕГДА занимает 100% ширины вьюпорта, не вздумай её урезать"
+          quality={90}
+          sizes="100vw"
+          fetchPriority="high" // <-- Браузер качает картинку в первую очередь
           className="object-cover"
         />
         <div className="absolute inset-0 bg-black/30" />
       </motion.div>
 
       {/* КОНТЕНТ-ЗОНА (ТЕКСТ) */}
-      {/* pt-40 для мобилок плавно перетекает в контролируемые отступы на больших мониторах */}
       <div className="absolute inset-0 z-10 flex w-full items-start pt-40 md:pt-48 xl:pt-56 3xl:pt-64 justify-center text-center px-4">
         <div className="max-w-2xl xl:max-w-4xl 3xl:max-w-6xl flex flex-col items-center gap-4 xl:gap-6 3xl:gap-8">
 
-          {/* Заголовок: масштабируется вплоть до 7xl на 2K мониторах и до 8xl на ультрашироких (3xl:) */}
+          {/* Заголовок */}
           <motion.h1
             variants={fadeInUpVariants}
             initial="hidden"
@@ -71,7 +74,7 @@ export default function Hero() {
             Территория <br/> вашего отдыха
           </motion.h1>
 
-          {/* Подзаголовок: становится крупнее и аккуратно распределяется по ширине */}
+          {/* Подзаголовок */}
           <motion.p
             variants={fadeInUpVariants}
             initial="hidden"
@@ -84,7 +87,7 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* КНОПКА: На обычных компах переключается на размер 'lg', а на ультрашироких масштабируется через кастомный класс */}
+      {/* КНОПКА */}
       <motion.div
         variants={fadeInUpVariants}
         initial="hidden"
