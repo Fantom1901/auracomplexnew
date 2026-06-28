@@ -1,4 +1,3 @@
-// page.jsx
 import PageWrapper from '@/components/layout/PageWrapper';
 import { RulesSidebar, RulesMainContent } from '@/components/modules/rules/RulesComponents';
 import {

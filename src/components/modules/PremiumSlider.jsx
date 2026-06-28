@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 // Импортируем твой скрипт генерации
 import { getDeterministicPalette } from '@/lib/utils/gradientGenerator';
 
@@ -37,6 +37,8 @@ export default function PremiumSlider({ items = [], title, sectionTag, sliderCla
     setPage((prev) => prev + newDirection);
   };
 
+  const progressScale = (activeIndex + 1) / items.length;
+
   return (
     <section className={`w-full text-brand-dark flex flex-col items-center overflow-hidden ${isStandalone ? 'p-0' : 'py-12 md:py-24 px-4 md:px-16'}`}>
 
@@ -67,17 +69,17 @@ export default function PremiumSlider({ items = [], title, sectionTag, sliderCla
 
         {/* АНИМИРОВАННЫЙ СЛОЙ */}
         <AnimatePresence initial={false} mode="wait">
-          <motion.div
+          <m.div
             key={page}
             variants={galleryVariants}
             initial="enter"
             animate="center"
             exit="exit"
-            className="absolute inset-0 w-full h-full flex flex-col justify-end items-start p-6 md:p-12 select-none overflow-hidden"
+            className="absolute inset-0 w-full h-full flex flex-col justify-end items-start p-6 md:p-12 select-none overflow-hidden will-change-opacity"
           >
             {/* БЭКГРАУНД С ИНЛАЙН СТИЛЯМИ ИЗ СКРИПТА */}
             <div
-              className="absolute inset-0 z-0 transition-colors duration-500"
+              className="absolute inset-0 z-0 transition-colors duration-500 will-change-colors"
               style={{
                 // Создаем красивый темный градиент на основе базового цвета bg
                 background: `linear-gradient(135deg, ${palette.bg} 0%, #0d1312 100%)`
@@ -85,7 +87,7 @@ export default function PremiumSlider({ items = [], title, sectionTag, sliderCla
             >
               {/* Верхний правый блик теперь светится динамическим цветом glow */}
               <div
-                className="absolute -top-20 -right-20 w-96 h-96 rounded-full blur-3xl opacity-30 pointer-events-none transition-colors duration-500"
+                className="absolute -top-20 -right-20 w-96 h-96 rounded-full blur-3xl opacity-30 pointer-events-none transition-colors duration-500 will-change-colors"
                 style={{ backgroundColor: palette.glow }}
               />
               <div className="absolute -bottom-10 left-1/3 w-80 h-80 rounded-full bg-black/[0.15] blur-2xl pointer-events-none" />
@@ -106,7 +108,7 @@ export default function PremiumSlider({ items = [], title, sectionTag, sliderCla
                 {currentItem.title}
               </h3>
             </div>
-          </motion.div>
+          </m.div>
         </AnimatePresence>
 
         {/* СТАТИЧНЫЙ СЛОЙ УПРАВЛЕНИЯ */}
@@ -143,10 +145,10 @@ export default function PremiumSlider({ items = [], title, sectionTag, sliderCla
       {!isStandalone && (
         <div className="w-full max-w-[1400px] mt-8 flex flex-col sm:flex-row items-center justify-between gap-6 px-2">
           <div className="w-full sm:max-w-xs md:max-w-md h-[2px] bg-brand-dark/10 relative rounded-full overflow-hidden">
-            <motion.div
-              className="absolute top-0 left-0 h-full bg-brand-dark"
-              initial={{ width: '0%' }}
-              animate={{ width: `${((activeIndex + 1) / items.length) * 100}%` }}
+            <m.div
+              className="absolute top-0 left-0 h-full w-full bg-brand-dark origin-left"
+              initial={{ transform: 'scaleX(0)' }}
+              animate={{ transform: `scaleX(${progressScale})` }}
               transition={{ duration: 0.3, ease: 'linear' }}
             />
           </div>

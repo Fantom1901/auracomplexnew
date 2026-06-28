@@ -1,6 +1,3 @@
-'use client';
-
-import { motion } from 'framer-motion';
 import { FaTelegram, FaVk, FaOdnoklassniki } from 'react-icons/fa';
 
 export default function ContactsSection() {
@@ -8,7 +5,7 @@ export default function ContactsSection() {
     <section className="w-full bg-[#304340] text-white py-16 md:py-24 px-6 md:px-16 flex justify-center border-t border-white/10">
       <div className="w-full max-w-[1400px] grid grid-cols-1 lg:grid-cols-12 rounded-[24px] md:rounded-[40px] overflow-hidden bg-[#e5eae7]/5 border border-white/5 shadow-2xl">
 
-        {/* ЛЕВАЯ ЧАСТЬ: ИНТЕРАКТИВНАЯ КАРТА (ИЛИ СТАТИЧНОЕ ФОТО) */}
+        {/* ЛЕВАЯ ЧАСТЬ: ИНТЕРАКТИВНАЯ КАРТА */}
         <div className="lg:col-span-6 xl:col-span-7 w-full h-[350px] sm:h-[450px] lg:h-auto min-h-[400px] relative bg-[#263533]">
           {/* Интерактивная Яндекс.Карта с точкой пос. Манский */}
           <iframe
@@ -27,7 +24,7 @@ export default function ContactsSection() {
 
           <div className="flex flex-col gap-10">
             {/* БЛОК: СВЯЗЬ */}
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 will-change-[opacity,transform]">
               <h3 className="text-xs uppercase tracking-[0.2em] text-white/40 font-semibold">
                 Контакты
               </h3>
@@ -56,7 +53,7 @@ export default function ContactsSection() {
             </div>
 
             {/* БЛОК: АДРЕС */}
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-3 will-change-[opacity,transform]">
               <h3 className="text-xs uppercase tracking-[0.2em] text-white/40 font-semibold">
                 Адрес
               </h3>
@@ -69,8 +66,8 @@ export default function ContactsSection() {
             </div>
           </div>
 
-          {/* БЛОК: СОЦСЕТИ (ТВОЙ КАСТОМНЫЙ КОД) */}
-          <div className="flex flex-col gap-4 pt-8 border-t border-white/10">
+          {/* БЛОК: СОЦСЕТИ */}
+          <div className="flex flex-col gap-4 pt-8 border-t border-white/10 will-change-[opacity,transform]">
             <h3 className="text-xs uppercase tracking-[0.2em] text-white/40 font-semibold">
               Мы в социальных сетях
             </h3>

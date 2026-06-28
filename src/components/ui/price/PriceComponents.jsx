@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
 
 // 1. Атомарная строка таблицы прайса
@@ -109,7 +109,7 @@ export function PriceTabBar({ categories, activeTab, setActiveTab }) {
 
   useEffect(() => {
     checkScrollLimits();
-    window.addEventListener('resize', checkScrollLimits);
+    window.addEventListener('resize', checkScrollLimits, { passive: true });
     return () => window.removeEventListener('resize', checkScrollLimits);
   }, []);
 
@@ -129,18 +129,24 @@ export function PriceTabBar({ categories, activeTab, setActiveTab }) {
     <div className="relative w-full mb-10 md:mb-16">
       <AnimatePresence>
         {showLeftMask && (
-          <motion.div
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}
-            className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-light-bg to-transparent pointer-events-none z-20 md:hidden"
+          <m.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-light-bg to-transparent pointer-events-none z-20 md:hidden will-change-opacity"
           />
         )}
       </AnimatePresence>
 
       <AnimatePresence>
         {showRightMask && (
-          <motion.div
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}
-            className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-light-bg to-transparent pointer-events-none z-20 md:hidden"
+          <m.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-light-bg to-transparent pointer-events-none z-20 md:hidden will-change-opacity"
           />
         )}
       </AnimatePresence>
@@ -174,9 +180,9 @@ export function PriceTabBar({ categories, activeTab, setActiveTab }) {
                 `}
               >
                 {isActive && (
-                  <motion.div
+                  <m.div
                     layoutId="priceLuxuryTab"
-                    className="absolute inset-0 bg-[#243431] -z-10"
+                    className="absolute inset-0 bg-[#243431] -z-10 will-change-transform"
                     initial={borderRadius}
                     animate={borderRadius}
                     transition={{ type: 'spring', stiffness: 380, damping: 35 }}

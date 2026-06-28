@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 
 export default function FadeInLayout({
                                        children,
@@ -11,7 +11,7 @@ export default function FadeInLayout({
                                        delay = 0
                                      }) {
   const content = (
-    <motion.div
+    <m.div
       key={animateKey}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -21,10 +21,10 @@ export default function FadeInLayout({
         ease: [0.16, 1, 0.3, 1],
         delay: delay
       }}
-      className={className}
+      className={`${className} will-change-[opacity,transform]`}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 
   if (withPresence) {

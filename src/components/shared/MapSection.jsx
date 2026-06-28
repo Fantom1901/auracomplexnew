@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from "react";
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useCallback } from "react";
+import { m, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import mapAuraImg from '../../../public/assets/mapAura.jpg';
 
@@ -24,9 +24,9 @@ const MAP_ZONES = [
 export default function MapSection() {
   const [hoveredZone, setHoveredZone] = useState(null);
 
-  const handleZoneClick = (slug, name) => {
+  const handleZoneClick = useCallback((slug, name) => {
     console.log(`Переход на страницу: ${name} (${slug})`);
-  };
+  }, []);
 
   return (
     <section className="w-full bg-light-bg text-brand-dark py-20 md:py-36 px-6 md:px-16 flex flex-col items-center">
@@ -51,7 +51,6 @@ export default function MapSection() {
             fill
             sizes="(max-w-1400px) 100vw, 1400px"
             className="object-cover pointer-events-none select-none"
-
           />
 
           {/* ИНТЕРАКТИВНЫЕ ЗОНЫ */}
@@ -89,17 +88,17 @@ export default function MapSection() {
                   }}
                 >
                   {/* Точка */}
-                  <motion.div
+                  <m.div
                     className="relative flex items-center justify-center pointer-events-none"
                     animate={{ opacity: isHovered ? 1 : 0.4 }}
                     transition={{ duration: 0.4 }}
                   >
-                    <motion.div
+                    <m.div
                       animate={{ scale: [1, 1.5, 1], opacity: [0.3, 0, 0.3] }}
                       transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                       className="absolute w-5 h-5 rounded-full bg-brand-white/40 border border-brand-white/30"
                     />
-                    <motion.div
+                    <m.div
                       animate={{
                         scale: isHovered ? 1.2 : 1,
                         boxShadow: isHovered ? "0 0 12px rgba(255,255,255,0.9)" : "0 0 0px rgba(255,255,255,0)"
@@ -107,19 +106,16 @@ export default function MapSection() {
                       transition={{ duration: 0.3 }}
                       className="w-1.5 h-1.5 rounded-full bg-brand-white"
                     />
-                  </motion.div>
+                  </m.div>
 
                   {/* АДАПТИВНЫЙ ТУЛТИП (ВВЕРХ ИЛИ ВНИЗ) */}
                   <AnimatePresence>
                     {isHovered && (
-                      <motion.div
-                        // Динамическая анимация вылета в зависимости от направления
+                      <m.div
                         initial={{ opacity: 0, y: isDown ? -6 : 6, scale: 0.97 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: isDown ? -4 : 4, scale: 0.97 }}
                         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-
-                        // Позиционируем класс: либо над точкой (bottom-full mb-3), либо под ней (top-full mt-3)
                         className={`absolute bg-brand-dark text-brand-white px-3.5 py-1.5 rounded-xl text-xs font-medium tracking-wide whitespace-nowrap shadow-[0_10px_25px_rgba(48,67,64,0.15)] border border-stone-700/20 flex items-center gap-1.5 pointer-events-none z-50 ${
                           isDown ? 'top-full mt-3' : 'bottom-full mb-3'
                         }`}
@@ -129,13 +125,13 @@ export default function MapSection() {
                           <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
                         </svg>
 
-                        {/* Переключаем положение стрелочки-уголка */}
+                        {/* Уголок-стрелочка */}
                         <div className={`absolute left-1/2 -translate-x-1/2 border-4 border-transparent ${
                           isDown
                             ? 'bottom-full border-b-brand-dark'
                             : 'top-full border-t-brand-dark'
                         }`} />
-                      </motion.div>
+                      </m.div>
                     )}
                   </AnimatePresence>
                 </div>

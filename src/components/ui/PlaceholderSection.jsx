@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 export default function PlaceholderSection({
                                              title = 'Страница в разработке',
@@ -15,11 +15,11 @@ export default function PlaceholderSection({
       <div className="w-full max-w-xl text-center flex flex-col items-center">
 
         {/* Декоративный элемент: Тэг и тонкая премиальная линия */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col items-center gap-3 mb-6"
+          className="flex flex-col items-center gap-3 mb-6 will-change-[opacity,transform]"
         >
           {tag && (
             <span className="text-[10px] uppercase tracking-[0.3em] text-brand-dark/40 font-mono font-medium">
@@ -27,34 +27,34 @@ export default function PlaceholderSection({
             </span>
           )}
           <div className="w-12 h-[1px] bg-brand-dark/20" />
-        </motion.div>
+        </m.div>
 
         {/* Заголовок с мягким проявлением */}
-        <motion.h1
+        <m.h1
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="text-4xl sm:text-5xl font-normal tracking-tight leading-tight max-w-lg"
+          className="text-4xl sm:text-5xl font-normal tracking-tight leading-tight max-w-lg will-change-[opacity,transform]"
         >
           {title}
-        </motion.h1>
+        </m.h1>
 
         {/* Описание */}
-        <motion.p
+        <m.p
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-6 text-brand-dark/60 text-base md:text-lg leading-relaxed max-w-md font-light"
+          className="mt-6 text-brand-dark/60 text-base md:text-lg leading-relaxed max-w-md font-light will-change-[opacity,transform]"
         >
           {description}
-        </motion.p>
+        </m.p>
 
         {/* Интерактивная кнопка-минималист */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-10"
+          className="mt-10 will-change-[opacity,transform]"
         >
           <Link
             href={backLink}
@@ -70,7 +70,7 @@ export default function PlaceholderSection({
               <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
             </svg>
           </Link>
-        </motion.div>
+        </m.div>
 
       </div>
     </div>

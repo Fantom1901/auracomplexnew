@@ -2,7 +2,7 @@
 
 import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { m, useScroll, useTransform } from 'framer-motion';
 import aboutImg from '../../../../public/assets/noroot.png';
 
 export function About() {
@@ -44,26 +44,26 @@ export function About() {
       className="w-full bg-light-bg text-brand-dark py-16 md:py-32 flex flex-col items-center overflow-hidden"
     >
       {/* ТЕКСТОВЫЙ БЛОК */}
-      <motion.div
+      <m.div
         initial="hidden"
         whileInView="visible"
         viewport={{once: true, margin: "-100px"}}
         className="max-w-4xl mx-auto text-center px-6 mb-10 md:mb-20 flex flex-col items-center gap-5 md:gap-6"
       >
         {/* Заголовок: На мобилке 32px/32px, на десктопе плавно переходит в твои 48px (text-5xl) с правильным leading */}
-        <motion.h2
-          className="font-medium text-3xl md:text-5xl leading-8 md:leading-[56px] text-brand-dark tracking-tight"
+        <m.h2
+          className="font-medium text-3xl md:text-5xl leading-8 md:leading-[56px] text-brand-dark tracking-tight will-change-[opacity,transform]"
           initial={{opacity: 0, y: 10}}
           whileInView={{opacity: 1, y: 0}}
           viewport={{once: true}}
           transition={{duration: 0.6, ease: [0.16, 1, 0.3, 1]}}
         >
           О комплексе
-        </motion.h2>
+        </m.h2>
 
-        {/* Основной текст: На мобилке аккуратные 16px (text-base) для читаемости, на десктопе — твои крупные 20px (text-xl) */}
-        <motion.p
-          className="font-normal text-base md:text-xl leading-6 md:leading-[27px] text-brand-dark/90 max-w-2xl px-1"
+        {/* Основной text: На мобилке аккуратные 16px (text-base) для читаемости, на десктопе — твои крупные 20px (text-xl) */}
+        <m.p
+          className="font-normal text-base md:text-xl leading-6 md:leading-[27px] text-brand-dark/90 max-w-2xl px-1 will-change-[opacity,transform]"
           initial={{opacity: 0, y: 15}}
           whileInView={{opacity: 1, y: 0}}
           viewport={{once: true}}
@@ -72,13 +72,12 @@ export function About() {
           Планируя свой отдых у нас, вам ничего не нужно брать с собой. <br className="hidden md:inline"/>
           В <span className="font-medium italic tracking-wide">AURA</span> есть все,
           чтобы погрузиться в атмосферу идеального отдыха.
-        </motion.p>
-      </motion.div>
+        </m.p>
+      </m.div>
 
       {/* АДАПТИВНЫЙ КОНТЕЙНЕР ДЛЯ ФОТО */}
-      {/* h-[60vh] на мобилке делает фотку более вытянутой и монументальной на экранах смартфонов */}
       <div className="w-[calc(100vw-32px)] md:w-[calc(100vw-80px)] max-w-[1600px] h-[60vh] md:h-[70vh] relative">
-        <motion.div
+        <m.div
           style={{scale: imageScale}}
           className="
             w-full h-full relative overflow-hidden
@@ -101,7 +100,7 @@ export function About() {
             className="object-cover"
             sizes="100vw"
           />
-        </motion.div>
+        </m.div>
       </div>
 
     </section>

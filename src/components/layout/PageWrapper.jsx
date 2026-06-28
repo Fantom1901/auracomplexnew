@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 export default function PageWrapper({ title, children }) {
   return (
@@ -9,14 +9,14 @@ export default function PageWrapper({ title, children }) {
 
         {/* Хедер страницы: Название + Тонкая разделительная полоса */}
         <div className="flex flex-col gap-4 border-b border-brand-dark/10 pb-6 mb-4">
-          <motion.h1
+          <m.h1
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium font-atyp tracking-tight"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium font-atyp tracking-tight will-change-[opacity,transform]"
           >
             {title}
-          </motion.h1>
+          </m.h1>
         </div>
 
         {/* Сюда будет прокидываться весь контент страницы (докбар, сетки, карточки) */}

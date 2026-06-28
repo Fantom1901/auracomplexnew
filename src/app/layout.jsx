@@ -1,6 +1,6 @@
 import localFont from 'next/font/local';
 import dynamic from 'next/dynamic';
-import { LazyMotion, domAnimation } from 'framer-motion'; // <-- Добавили сюда ленивую загрузку анимаций
+import { LazyMotion, domAnimation } from 'framer-motion';
 import TelegramMenuWrapper from '@/components/ui/TelegramMenuWrapper';
 import './globals.css';
 
@@ -42,9 +42,9 @@ export default function RootLayout({ children, modal }) {
     <html lang="ru">
     <body className={`${atypText.variable} antialiased bg-stone-950 relative min-h-screen w-full overflow-x-hidden`}>
 
-    <TelegramMenuWrapper menuItems={menuItems}>
-      {/* Обернули всё приложение, чтобы m.div в табах заработал на минималках */}
-      <LazyMotion features={domAnimation}>
+    {/* Подняли LazyMotion сюда, теперь анимации доступны и в TelegramMenuWrapper, и внутри Header/MobileMenu */}
+    <LazyMotion features={domAnimation}>
+      <TelegramMenuWrapper menuItems={menuItems}>
         <main className="w-full relative z-10 flex flex-col min-h-screen">
           <div className="flex-grow">
             {children}
@@ -52,8 +52,8 @@ export default function RootLayout({ children, modal }) {
           <ContactsSection />
           <Footer />
         </main>
-      </LazyMotion>
-    </TelegramMenuWrapper>
+      </TelegramMenuWrapper>
+    </LazyMotion>
 
     {/* Слот для модальных окон (Intercepting Routes) */}
     {modal}

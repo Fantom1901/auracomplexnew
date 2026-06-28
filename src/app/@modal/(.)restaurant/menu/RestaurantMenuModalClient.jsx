@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import RestaurantMenuSection from "@/components/sections/restaurant/RestaurantMenuSection";
 import CloseButton from "@/components/ui/CloseButton";
 
@@ -12,7 +12,7 @@ export default function RestaurantMenuModalClient({ validatedMenuData }) {
     <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-brand-dark/40 backdrop-blur-md p-4 md:p-10">
       <div className="fixed inset-0 cursor-pointer" onClick={() => router.back()} />
 
-      <motion.div
+      <m.div
         initial={{ opacity: 0, scale: 0.95, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -30,7 +30,7 @@ export default function RestaurantMenuModalClient({ validatedMenuData }) {
         {/* Передаем валидированные данные в секцию */}
         <RestaurantMenuSection initialMenuData={validatedMenuData} />
 
-      </motion.div>
+      </m.div>
     </div>
   );
 }

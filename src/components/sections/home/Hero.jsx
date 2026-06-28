@@ -1,8 +1,8 @@
 "use client";
 
-import Image from 'next/image';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { useRef } from 'react';
+import Image from 'next/image';
+import { m, useScroll, useTransform, useSpring } from 'framer-motion';
 import heroImg from '../../../../public/assets/HeroImage.png';
 import AnimatedButton from '@/components/ui/buttons/AnimatedButton';
 
@@ -41,7 +41,7 @@ export default function Hero() {
       {/* ОБЕРТКА ФОНА: Чтобы SSR сразу отдавал картинку браузеру,
         мы жестко задаем стиль для серверного рендеринга, который потом перехватит framer-motion
       */}
-      <motion.div
+      <m.div
         style={{ y: backgroundY }}
         initial={{ y: 0 }} // <-- Принудительный сброс для корректного SSR дерева
         className="absolute -inset-y-20 inset-x-0 z-0 will-change-transform"
@@ -57,43 +57,43 @@ export default function Hero() {
           className="object-cover"
         />
         <div className="absolute inset-0 bg-black/30" />
-      </motion.div>
+      </m.div>
 
       {/* КОНТЕНТ-ЗОНА (ТЕКСТ) */}
       <div className="absolute inset-0 z-10 flex w-full items-start pt-40 md:pt-48 xl:pt-56 3xl:pt-64 justify-center text-center px-4">
         <div className="max-w-2xl xl:max-w-4xl 3xl:max-w-6xl flex flex-col items-center gap-4 xl:gap-6 3xl:gap-8">
 
           {/* Заголовок */}
-          <motion.h1
+          <m.h1
             variants={fadeInUpVariants}
             initial="hidden"
             animate="visible"
             custom={0.2}
-            className="text-5xl md:text-6xl xl:text-7xl 3xl:text-8xl font-medium tracking-tight text-light-bg leading-tight md:leading-snug xl:leading-[1.1]"
+            className="text-5xl md:text-6xl xl:text-7xl 3xl:text-8xl font-medium tracking-tight text-light-bg leading-tight md:leading-snug xl:leading-[1.1] will-change-[opacity,transform]"
           >
             Территория <br/> вашего отдыха
-          </motion.h1>
+          </m.h1>
 
           {/* Подзаголовок */}
-          <motion.p
+          <m.p
             variants={fadeInUpVariants}
             initial="hidden"
             animate="visible"
             custom={0.4}
-            className="text-sm sm:text-base xl:text-lg 3xl:text-xl text-light-bg/90 max-w-md xl:max-w-xl 3xl:max-w-2xl font-normal leading-relaxed"
+            className="text-sm sm:text-base xl:text-lg 3xl:text-xl text-light-bg/90 max-w-md xl:max-w-xl 3xl:max-w-2xl font-normal leading-relaxed will-change-[opacity,transform]"
           >
             Многофункциональный комплекс отдыха<br/> в 30 минутах от города Красноярска<br/> на реке Мана
-          </motion.p>
+          </m.p>
         </div>
       </div>
 
       {/* КНОПКА */}
-      <motion.div
+      <m.div
         variants={fadeInUpVariants}
         initial="hidden"
         animate="visible"
         custom={0.6}
-        className="absolute bottom-12 xl:bottom-20 left-1/2 -translate-x-1/2 z-20"
+        className="absolute bottom-12 xl:bottom-20 left-1/2 -translate-x-1/2 z-20 will-change-[opacity,transform]"
       >
         <AnimatedButton
           href="https://auracomplex.mehotel.ru/widget"
@@ -102,7 +102,7 @@ export default function Hero() {
         >
           Показать номера
         </AnimatedButton>
-      </motion.div>
+      </m.div>
 
     </section>
   );

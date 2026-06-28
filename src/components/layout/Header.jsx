@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import Logo from '@/components/ui/Logo';
 import NavLink from '@/components/ui/buttons/NavLink';
 
@@ -17,21 +17,21 @@ export default function Header({ isOpen, setIsOpen, menuItems, shiftClasses = ''
   return (
     <div className={`fixed top-3 left-0 right-0 w-full max-w-[100vw] px-4 md:px-20 z-50 pointer-events-none box-border ${shiftClasses} ${transitionClasses}`}>
       <div className="max-w-7xl mx-auto w-full relative pointer-events-auto">
-        <motion.header
+        <m.header
           variants={headerVariants}
           initial="initial"
           animate="animate"
-          className="w-full bg-light-bg text-brand-dark h-13 rounded-[12px] shadow-md relative pointer-events-auto"
+          className="w-full bg-light-bg text-brand-dark h-13 rounded-[12px] shadow-md relative pointer-events-auto will-change-transform"
         >
           <div className="h-full flex items-center justify-between pr-16 lg:pr-8">
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="h-full"
+              className="h-full will-change-[opacity,transform]"
             >
               <Logo inHeader={true} size={"lg"} />
-            </motion.div>
+            </m.div>
 
             {/* ДЕСКТОПНОЕ МЕНЮ */}
             <nav className="hidden lg:flex w-auto mx-auto items-center justify-center gap-12 font-normal text-sm pointer-events-auto">
@@ -58,24 +58,24 @@ export default function Header({ isOpen, setIsOpen, menuItems, shiftClasses = ''
             aria-label={isOpen ? "Закрыть меню" : "Открыть меню"}
           >
             <div className="w-6 h-5 relative flex flex-col justify-between items-center">
-              <motion.span
+              <m.span
                 animate={{ rotate: isOpen ? 45 : 0, y: isOpen ? 9 : 0 }}
                 transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                className="w-6 h-0.5 bg-stone-950"
+                className="w-6 h-0.5 bg-stone-950 will-change-transform"
               />
-              <motion.span
+              <m.span
                 animate={{ opacity: isOpen ? 0 : 1 }}
                 transition={{ duration: 0.2 }}
-                className="w-6 h-0.5 bg-stone-950"
+                className="w-6 h-0.5 bg-stone-950 will-change-opacity"
               />
-              <motion.span
+              <m.span
                 animate={{ rotate: isOpen ? -45 : 0, y: isOpen ? -9 : 0 }}
                 transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                className="w-6 h-0.5 bg-stone-950"
+                className="w-6 h-0.5 bg-stone-950 will-change-transform"
               />
             </div>
           </button>
-        </motion.header>
+        </m.header>
       </div>
     </div>
   );

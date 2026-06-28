@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import Image from 'next/image';
 import { getDeterministicPalette } from '@/lib/utils/gradientGenerator';
 
@@ -18,7 +18,7 @@ export default function ServiceCard({
   const palette = getDeterministicPalette(title);
 
   return (
-    <motion.div
+    <div
       onClick={onClick}
       className="w-full border border-brand-dark/15 bg-white rounded-2xl md:rounded-3xl lg:rounded-[32px] p-6 md:p-8 lg:p-10 xl:p-12 flex flex-col md:grid md:grid-cols-12 gap-6 md:gap-8 lg:gap-12 xl:gap-16 items-center lg:items-stretch transition-all duration-300 hover:border-brand-dark/30 hover:shadow-2xl hover:shadow-brand-dark/5 group cursor-pointer relative overflow-hidden"
     >
@@ -35,15 +35,11 @@ export default function ServiceCard({
           {showButton && (
             <div className="hidden lg:flex items-center gap-2.5 text-xs xl:text-sm font-semibold tracking-wider uppercase text-brand-dark transition-colors duration-300 lg:mt-auto lg:pt-6">
               <span>Подробнее</span>
-              <motion.span
-                className="inline-block text-sm xl:text-base"
-                variants={{ hover: { x: 6 } }}
-                animate={undefined}
-                whileHover="hover"
-                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+              <m.span
+                className="inline-block text-sm xl:text-base transform group-hover:translate-x-1.5 transition-transform duration-300 will-change-transform"
               >
                 →
-              </motion.span>
+              </m.span>
             </div>
           )}
         </div>
@@ -96,7 +92,7 @@ export default function ServiceCard({
             src={imageSrc}
             alt={imageAlt || title}
             fill
-            className="object-cover transition-transform duration-700 ease-out scale-100 group-hover:scale-103 filter brightness-[0.99] group-hover:brightness-100"
+            className="object-cover transition-transform duration-700 ease-out scale-100 group-hover:scale-103 filter brightness-[0.99] group-hover:brightness-100 will-change-transform"
             sizes="(max-w-768px) 100vw, (max-w-1024px) 42vw, 33vw"
             priority
           />
@@ -107,7 +103,7 @@ export default function ServiceCard({
           >
             {/* Эмбиент-свечение */}
             <div
-              className="absolute -top-1/4 -right-1/4 w-full h-full rounded-full blur-[70px] md:blur-[90px] opacity-45 mix-blend-screen transition-transform duration-1000 group-hover:scale-110"
+              className="absolute -top-1/4 -right-1/4 w-full h-full rounded-full blur-[70px] md:blur-[90px] opacity-45 mix-blend-screen transition-transform duration-1000 group-hover:scale-110 will-change-transform"
               style={{ backgroundColor: palette.glow }}
             />
 
@@ -132,6 +128,6 @@ export default function ServiceCard({
         </div>
       )}
 
-    </motion.div>
+    </div>
   );
 }

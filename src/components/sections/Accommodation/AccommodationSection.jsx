@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
-import AccommodationCard from '@/components/ui/AccommodationCard';
+import { AnimatePresence, m } from 'framer-motion';
+import AccommodationCard from '@/components/sections/Accommodation/AccommodationCard';
 import CapsuleTabBar from '@/components/ui/CapsuleTabBar';
 import accommodationData from '@/app/accommodation/accommodation.config.json';
 
@@ -22,7 +22,6 @@ export default function AccommodationSection() {
   return (
     <div className="w-full text-[#304340]">
 
-      {/* Кастомный таббар */}
       <CapsuleTabBar
         tabs={categories}
         activeId={activeCategory}
@@ -31,21 +30,18 @@ export default function AccommodationSection() {
 
       {/* Список карточек */}
       <AnimatePresence mode="wait">
-        {/* Теперь внутри AnimatePresence лежит ВСЕГО ОДИН motion-компонент.
-          При изменении activeCategory он полностью перезапускает анимацию для всего списка карточек.
-        */}
-        <motion.div
+        <m.div
           key={activeCategory}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col gap-12 md:gap-20 w-full"
+          className="flex flex-col gap-12 md:gap-20 w-full will-change-[opacity,transform]"
         >
           {filteredRooms.map((room) => (
             <AccommodationCard key={room.id} room={room} />
           ))}
-        </motion.div>
+        </m.div>
       </AnimatePresence>
 
     </div>

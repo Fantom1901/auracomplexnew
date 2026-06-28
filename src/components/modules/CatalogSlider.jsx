@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import useEmblaCarousel from 'embla-carousel-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 
 // Импорты всех картинок
 import img1 from '../../../public/assets/catalog/1.jpg';
@@ -56,7 +56,7 @@ export default function CatalogSlider() {
 
   const onScroll = useCallback((emblaApi) => {
     const progress = Math.max(0, Math.min(1, emblaApi.scrollProgress()));
-    setScrollProgress(progress * 100);
+    setScrollProgress(progress);
   }, []);
 
   useEffect(() => {
@@ -164,8 +164,8 @@ export default function CatalogSlider() {
       {/* ПРОГРЕССБАР */}
       <div className="w-[calc(100vw-32px)] md:w-[calc(100vw-160px)] max-w-7xl mx-auto mt-16 h-[2px] bg-brand-dark/10 relative rounded-full">
         <div
-          className="absolute top-0 left-0 h-full bg-brand-dark rounded-full transition-all duration-75 ease-out"
-          style={{ width: `${scrollProgress}%` }}
+          className="absolute top-0 left-0 h-full w-full bg-brand-dark rounded-full transition-transform duration-75 ease-out origin-left"
+          style={{ transform: `scaleX(${scrollProgress})` }}
         />
       </div>
 
@@ -173,31 +173,31 @@ export default function CatalogSlider() {
       {mounted && createPortal(
         <AnimatePresence>
           {activeImage && (
-            <motion.div
+            <m.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setActiveImage(null)}
-              className="fixed inset-0 z-[9999] bg-black/95 backdrop-blur-md flex items-center justify-center p-4 md:p-10 cursor-zoom-out"
+              className="fixed inset-0 z-[9999] bg-black/95 backdrop-blur-md flex items-center justify-center p-4 md:p-10 cursor-zoom-out will-change-opacity"
             >
               <button className="absolute top-6 right-6 text-white/50 text-xs tracking-widest uppercase hover:text-white transition-colors">
                 Закрыть
               </button>
 
-              <motion.div
+              <m.div
                 initial={{ scale: 0.98 }}
                 animate={{ scale: 1 }}
                 exit={{ scale: 0.98 }}
                 onClick={(e) => e.stopPropagation()}
-                className="relative max-w-full max-h-[82vh] md:max-h-[88vh] flex items-center justify-center"
+                className="relative max-w-full max-h-[82vh] md:max-h-[88vh] flex items-center justify-center will-change-transform"
               >
                 <Image
                   src={activeImage}
                   alt="Увеличенное фото локации"
                   className="w-auto h-auto max-w-full max-h-[82vh] md:max-h-[88vh] object-contain rounded-lg md:rounded-xl shadow-2xl"
                 />
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           )}
         </AnimatePresence>,
         document.body

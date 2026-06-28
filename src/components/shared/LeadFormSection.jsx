@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useCallback } from 'react';
+import { m, AnimatePresence } from 'framer-motion';
 import AnimatedButton from "@/components/ui/buttons/AnimatedButton";
 
 export default function LeadFormSection() {
@@ -12,9 +12,12 @@ export default function LeadFormSection() {
     agree: false,
   });
 
-  const [status, setStatus] = useState({ type: null, message: '' });
+  const [status, setStatus] = useState({
+    type: null,
+    message: ''
+  });
 
-  const handlePhoneChange = (e) => {
+  const handlePhoneChange = useCallback((e) => {
     let input = e.target.value.replace(/\D/g, '');
     if (input.startsWith('7') || input.startsWith('8')) input = input.substring(1);
 
@@ -24,8 +27,8 @@ export default function LeadFormSection() {
     if (input.length > 6) formatted += '-' + input.substring(6, 8);
     if (input.length > 8) formatted += '-' + input.substring(8, 10);
 
-    setFormData({ ...formData, phone: formatted === '' ? '' : formatted.substring(0, 18) });
-  };
+    setFormData((prev) => ({ ...prev, phone: formatted === '' ? '' : formatted.substring(0, 18) }));
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -88,9 +91,8 @@ export default function LeadFormSection() {
             />
           </div>
 
-          {/* Дата рождения — Тотальный фикс иконки */}
+          {/* Дата рождения */}
           <div className="w-full relative flex items-center text-left rounded-[16px] bg-[#e5eae7] overflow-hidden">
-
             <input
               type="date"
               required
@@ -105,13 +107,8 @@ export default function LeadFormSection() {
               }}
             />
 
-            {/*/!* Наша кастомная иконка из react-icons — теперь она строго ПОД прозрачной областью клика *!/*/}
-            {/*<div className="absolute right-5 z-10 text-[#304340]/40 pointer-events-none">*/}
-            {/*  <FiCalendar className="w-5 h-5" />*/}
-            {/*</div>*/}
-
-            {/* Выжигаем нативный значок календаря через инжект стилей */}
-            <style jsx global>{`
+            {/* Нативный значок календаря */}
+            <style dangerouslySetInnerHTML={{__html: `
               input[type="date"]::-webkit-calendar-picker-indicator {
                 background: transparent;
                 bottom: 0;
@@ -123,7 +120,7 @@ export default function LeadFormSection() {
                 top: 0;
                 width: auto;
                 height: auto;
-                opacity: 0; /* Полная прозрачность */
+                opacity: 0;
                 -webkit-appearance: none;
               }
               input[type="date"]::-webkit-inner-spin-button,
@@ -131,7 +128,7 @@ export default function LeadFormSection() {
                 -webkit-appearance: none;
                 display: none;
               }
-            `}</style>
+            `}} />
           </div>
 
           {/* Чекбокс */}
@@ -164,7 +161,7 @@ export default function LeadFormSection() {
           {/* Анимация статуса */}
           <AnimatePresence mode="wait">
             {status.type && (
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
@@ -184,14 +181,11 @@ export default function LeadFormSection() {
                 ) : (
                   status.message
                 )}
-              </motion.div>
+              </m.div>
             )}
           </AnimatePresence>
 
-          <AnimatedButton
-          >Отправить заявку
-          </AnimatedButton>
-
+          <AnimatedButton>Отправить заявку</AnimatedButton>
 
         </form>
 

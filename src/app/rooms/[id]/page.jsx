@@ -1,11 +1,9 @@
-'use client';
-
-import React from 'react';
+import { use } from 'react';
 import Link from 'next/link';
 
 export default function RoomPage({ params }) {
-  // В Next.js 15+ params может быть асинхронным, разворачиваем через React.use()
-  const { id } = React.use(params);
+  // В Next.js 15+ params — это Promise. Разворачиваем его прямо на сервере с помощью хука use()
+  const { id } = use(params);
 
   return (
     <div className="w-full min-h-screen bg-light-bg text-brand-dark flex flex-col items-center justify-center px-4 font-sans">

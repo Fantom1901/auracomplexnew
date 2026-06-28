@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import AnimatedButton from '@/components/ui/buttons/AnimatedButton';
 import PremiumSlider from '@/components/modules/PremiumSlider';
 import CapsuleTabBar from '@/components/ui/CapsuleTabBar';
@@ -66,13 +66,13 @@ export default function Accommodation() {
         />
 
         <AnimatePresence mode="wait">
-          <motion.div
+          <m.div
             key={activeTab.id}
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 lg:gap-16 items-start"
+            className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 lg:gap-16 items-start will-change-[opacity,transform]"
           >
             <div className="w-full lg:col-span-6 rounded-2xl md:rounded-3xl overflow-hidden shadow-sm border border-stone-200/40">
               <PremiumSlider
@@ -146,7 +146,7 @@ export default function Accommodation() {
                 </AnimatedButton>
               </div>
             </div>
-          </motion.div>
+          </m.div>
         </AnimatePresence>
 
       </div>

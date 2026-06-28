@@ -1,11 +1,11 @@
 'use client';
 
-import React from 'react';
+import { useMemo } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
-// Используем актуальный метод .create() вместо устаревшего вызова функции
-const MotionLink = motion.create(Link);
+// Используем m.create для создания анимированной ссылки Next.js
+const MotionLink = m.create(Link);
 
 export default function SolidButton({
                                       children,
@@ -13,28 +13,29 @@ export default function SolidButton({
                                       href,
                                       type = 'button',
                                       variant = 'outline', // 'outline' | 'filled'
-                                      rounded = 'rounded-full', // Передаем любые классы скругления: rounded-xl, rounded-3xl и т.д.
+                                      rounded = 'rounded-full', // Любые классы скругления: rounded-xl, rounded-3xl и т.д.
                                       className = ''
                                     }) {
 
-  // Стили для разных вариантов кнопки, завязанные на наши фирменные цвета
-  const baseStyles = `relative inline-flex items-center justify-center px-8 py-4 text-sm md:text-base font-medium tracking-wide transition-colors duration-500 overflow-hidden select-none cursor-pointer ${rounded} ${className}`;
+  // Кешируем пропсы анимации и стили, чтобы избежать их пересоздания при каждом рендере
+  const motionProps = useMemo(() => {
+    const baseStyles = `relative inline-flex items-center justify-center px-8 py-4 text-sm md:text-base font-medium tracking-wide transition-colors duration-500 overflow-hidden select-none cursor-pointer ${rounded} ${className}`;
 
-  const variants = {
-    outline: 'border border-brand-dark/20 text-brand-dark bg-transparent',
-    filled: 'bg-brand-dark text-brand-white border border-transparent'
-  };
+    const variants = {
+      outline: 'border border-brand-dark/20 text-brand-dark bg-transparent',
+      filled: 'bg-brand-dark text-brand-white border border-transparent'
+    };
 
-  // Общие настройки анимаций и интерактивности для Framer Motion
-  const motionProps = {
-    className: `${baseStyles} ${variants[variant]} group`,
-    whileHover: {
-      scale: 1.02,
-      boxShadow: "0 10px 30px rgba(48,67,64,0.05)"
-    },
-    whileTap: { scale: 0.98 },
-    transition: { type: 'spring', stiffness: 400, damping: 30 }
-  };
+    return {
+      className: `${baseStyles} ${variants[variant]} group`,
+      whileHover: {
+        scale: 1.02,
+        boxShadow: "0 10px 30px rgba(48,67,64,0.05)"
+      },
+      whileTap: { scale: 0.98 },
+      transition: { type: 'spring', stiffness: 400, damping: 30 }
+    };
+  }, [variant, rounded, className]);
 
   // Внутренний контент кнопки (текст, иконка, стрелочка, фоны)
   const buttonContent = (
@@ -75,8 +76,8 @@ export default function SolidButton({
 
   // В противном случае рендерим как стандартную кнопку
   return (
-    <motion.button type={type} onClick={onClick} {...motionProps}>
+    <m.button type={type} onClick={onClick} {...motionProps}>
       {buttonContent}
-    </motion.button>
+    </m.button>
   );
 }

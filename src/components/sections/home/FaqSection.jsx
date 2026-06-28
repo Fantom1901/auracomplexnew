@@ -1,9 +1,10 @@
-'use client';
+"use client";
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import dynamic from 'next/dynamic';
+import { AnimatePresence, m } from 'framer-motion';
 
-// 📝 БАЗА ДАННЫХ FAQ (Вопросы восстановлены по контексту ответов)
+// 📝 БАЗА ДАННЫХ FAQ
 const FAQ_DATA = [
   {
     id: 'pets',
@@ -58,7 +59,7 @@ const FAQ_DATA = [
   }
 ];
 
-export default function FaqSection() {
+function FaqSectionContent() {
   const [openId, setOpenId] = useState(null);
 
   const toggleAccordion = (id) => {
@@ -70,23 +71,23 @@ export default function FaqSection() {
 
       {/* ШАПКА СЕКЦИИ */}
       <div className="w-full max-w-[900px] mb-12 md:mb-20 flex flex-col gap-3 text-center items-center">
-        <motion.span
+        <m.span
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           className="text-xs uppercase tracking-[0.2em] text-brand-dark/40 font-medium"
         >
           FAQ
-        </motion.span>
-        <motion.h2
+        </m.span>
+        <m.h2
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="font-medium text-3xl md:text-5xl tracking-tight text-brand-dark"
+          className="font-medium text-3xl md:text-5xl tracking-tight text-brand-dark will-change-[opacity,transform]"
         >
           Часто задаваемые вопросы
-        </motion.h2>
+        </m.h2>
       </div>
 
       {/* СПИСОК АККОРДЕОНОВ */}
@@ -95,18 +96,18 @@ export default function FaqSection() {
           const isOpen = openId === item.id;
 
           return (
-            <motion.div
+            <m.div
               key={item.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.05 }}
-              className="border-b border-brand-dark/10 last:border-none"
+              transition={{ duration: 0.6, delay: index * 0.03 }}
+              className="border-b border-brand-dark/10 last:border-none will-change-[opacity,transform]"
             >
               {/* Кнопка-заголовок */}
               <button
                 onClick={() => toggleAccordion(item.id)}
-                className="w-full py-6 md:py-8 flex items-center justify-between text-left gap-6 group cursor-pointer outline-none"
+                className="w-full py-6 md:py-8 flex items-center justify-between text-left gap-6 group cursor-pointer outline-none bg-transparent"
                 aria-expanded={isOpen}
               >
                 <span className="text-base md:text-xl font-medium tracking-wide text-brand-dark/80 group-hover:text-brand-dark transition-colors duration-300">
@@ -115,7 +116,7 @@ export default function FaqSection() {
 
                 {/* Изящная минималистичная стрелочка */}
                 <div className="w-6 h-6 rounded-full bg-brand-dark/5 flex items-center justify-center group-hover:bg-brand-dark/10 transition-colors duration-300 shrink-0">
-                  <motion.svg
+                  <m.svg
                     animate={{ rotate: isOpen ? 180 : 0 }}
                     transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                     className="w-3 h-3 stroke-brand-dark"
@@ -124,24 +125,24 @@ export default function FaqSection() {
                     viewBox="0 0 24 24"
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                  </motion.svg>
+                  </m.svg>
                 </div>
               </button>
 
               {/* Раскрывающаяся панель ответа */}
               <AnimatePresence initial={false}>
                 {isOpen && (
-                  <motion.div
+                  <m.div
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                    className="overflow-hidden"
+                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                    className="overflow-hidden will-change-[height,opacity]"
                   >
                     <div className="pb-6 md:pb-8 pr-12 text-sm md:text-base text-brand-dark/60 font-normal leading-relaxed tracking-wide flex flex-col items-start gap-4">
                       <p>{item.answer}</p>
 
-                      {/* Если у вопроса есть ссылка (например, правила для собак) */}
+                      {/* Если у вопроса есть ссылка */}
                       {item.link && (
                         <a
                           href={item.link.url}
@@ -154,10 +155,10 @@ export default function FaqSection() {
                         </a>
                       )}
                     </div>
-                  </motion.div>
+                  </m.div>
                 )}
               </AnimatePresence>
-            </motion.div>
+            </m.div>
           );
         })}
       </div>
@@ -165,3 +166,9 @@ export default function FaqSection() {
     </section>
   );
 }
+
+// Асинхронно импортируем контентную часть, разгружая основной бандл
+export default dynamic(() => Promise.resolve(FaqSectionContent), {
+  ssr: true,
+  loading: () => <div className="w-full h-[600px] bg-stone-900/5 animate-pulse" />
+});

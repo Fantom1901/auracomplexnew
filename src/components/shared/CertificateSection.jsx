@@ -1,50 +1,49 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import Image from 'next/image';
 import interiorImg from '../../../public/assets/interior.png';
 import AnimatedButton from '@/components/ui/buttons/AnimatedButton';
+
 export default function CertificateSection() {
-
-
   return (
     <section className="w-full bg-light-bg text-brand-dark py-20 md:py-36 px-6 md:px-16 flex flex-col items-center">
 
       {/* МИНИМАЛИСТИЧНЫЙ ЗАГОЛОВОК СЕКЦИИ */}
       <div className="w-full max-w-[1400px] mb-12 md:mb-16 flex flex-col gap-2">
-        <motion.span
+        <m.span
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="text-xs uppercase tracking-[0.2em] text-brand-dark/40 font-medium"
+          className="text-xs uppercase tracking-[0.2em] text-brand-dark/40 font-medium will-change-opacity"
         >
           Особый подарок
-        </motion.span>
-        <motion.h2
+        </m.span>
+        <m.h2
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="font-medium text-3xl md:text-5xl tracking-tight text-brand-dark"
+          className="font-medium text-3xl md:text-5xl tracking-tight text-brand-dark will-change-[opacity,transform]"
         >
           Подарочные сертификаты
-        </motion.h2>
+        </m.h2>
       </div>
 
       {/* ГЛАВНЫЙ СПЛИТ-КОНТЕЙНЕР */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        className="w-full max-w-[1400px] grid grid-cols-1 lg:grid-cols-12 rounded-[24px] md:rounded-[40px] overflow-hidden shadow-[0_30px_70px_rgba(48,67,64,0.04)] border border-stone-200/30"
+        className="w-full max-w-[1400px] grid grid-cols-1 lg:grid-cols-12 rounded-[24px] md:rounded-[40px] overflow-hidden shadow-[0_30px_70px_rgba(48,67,64,0.04)] border border-stone-200/30 will-change-[opacity,transform]"
       >
 
         {/* ЛЕВАЯ ЧАСТЬ: БОЛЬШОЕ АТМОСФЕРНОЕ ФОТО */}
         <div className="relative lg:col-span-7 h-[35vh] sm:h-[45vh] lg:h-[65vh] w-full bg-stone-100 overflow-hidden">
           <Image
             src={interiorImg}
-            alt="Уютный интерьер загородного комплекса AURA"
+            alt="Уютный interior загородного комплекса AURA"
             fill
             sizes="(max-w-1000px) 100vw, 60vw"
             className="object-cover transition-transform duration-1000 ease-out hover:scale-102"
@@ -88,7 +87,7 @@ export default function CertificateSection() {
 
         </div>
 
-      </motion.div>
+      </m.div>
 
     </section>
   );

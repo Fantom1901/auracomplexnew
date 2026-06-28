@@ -9,8 +9,6 @@ import MapSection from "@/components/shared/MapSection";
 import CertificateSection from "@/components/shared/CertificateSection";
 import FaqSection from "@/components/sections/home/FaqSection";
 import LeadFormSection from "@/components/shared/LeadFormSection";
-import ContactsSection from "@/components/shared/ContactsSection";
-import Footer from "@/components/layout/Footer";
 
 export default function Home() {
   return (

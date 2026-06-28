@@ -1,12 +1,11 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import Logo from '@/components/ui/Logo';
 import AnimatedButton from '@/components/ui/buttons/AnimatedButton';
 import NavLink from '@/components/ui/buttons/NavLink';
 import { FaTelegram, FaVk, FaOdnoklassniki } from 'react-icons/fa';
 
-// Убрали из пропсов sharedTransition, настраиваем строго здесь
 export default function MobileMenu({ isOpen, setIsOpen, menuItems }) {
 
   // Единый жесткий транзишн без пружин и отскоков для самого меню
@@ -38,34 +37,34 @@ export default function MobileMenu({ isOpen, setIsOpen, menuItems }) {
   };
 
   return (
-    <motion.div
+    <m.div
       initial={{ x: '100%' }}
       animate={{ x: isOpen ? '0%' : '100%' }}
       transition={menuTransition} // Повесили чистый tween
-      className="fixed top-0 right-0 h-screen w-[75vw] sm:w-[320px] bg-stone-950 pt-20 px-6 flex flex-col lg:hidden z-50 pointer-events-auto border-l border-white/5"
+      className="fixed top-0 right-0 h-screen w-[75vw] sm:w-[320px] bg-stone-950 pt-20 px-6 flex flex-col lg:hidden z-50 pointer-events-auto border-l border-white/5 will-change-transform"
     >
       {/* Логотип */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, scale: 0.98 }}
         animate={{ opacity: isOpen ? 1 : 0, scale: isOpen ? 1 : 0.98 }}
         transition={{ duration: 0.2, ease: 'easeInOut' }}
-        className="bg-[#a3c6a8] w-27 h-20 flex rounded-xl items-center justify-center mb-12 mx-2"
+        className="bg-[#a3c6a8] w-27 h-20 flex rounded-xl items-center justify-center mb-12 mx-2 will-change-[opacity,transform]"
       >
         <Logo size={'lg'} />
-      </motion.div>
+      </m.div>
 
       {/* ССЫЛКИ */}
-      <motion.div
+      <m.div
         variants={navContainerVariants}
         initial="hidden"
         animate={isOpen ? "show" : "hidden"}
         className="flex flex-col"
       >
         {menuItems.map((item) => (
-          <motion.div
+          <m.div
             key={item.name}
             variants={navItemVariants}
-            className="w-full border-b border-white/5 last:border-none"
+            className="w-full border-b border-white/5 last:border-none will-change-[opacity,transform]"
           >
             <NavLink
               href={item.href}
@@ -82,9 +81,9 @@ export default function MobileMenu({ isOpen, setIsOpen, menuItems }) {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
               </svg>
             </NavLink>
-          </motion.div>
+          </m.div>
         ))}
-      </motion.div>
+      </m.div>
 
       {/* Соцсети */}
       <div className="flex flex-col justify-end items-center h-full mb-8 gap-6">
@@ -102,17 +101,17 @@ export default function MobileMenu({ isOpen, setIsOpen, menuItems }) {
           </a>
         </div>
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: isOpen ? 1 : 0, y: isOpen ? 0 : 8 }}
           transition={{ delay: 0.15, duration: 0.3, ease: 'easeInOut' }}
-          className="w-full flex justify-center px-2"
+          className="w-full flex justify-center px-2 will-change-[opacity,transform]"
         >
           <AnimatedButton href="tel:+73912311616" variant="light" size="md" className="w-full text-center">
             Позвонить сейчас
           </AnimatedButton>
-        </motion.div>
+        </m.div>
       </div>
-    </motion.div>
+    </m.div>
   );
 }

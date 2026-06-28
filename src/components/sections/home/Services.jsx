@@ -2,7 +2,7 @@
 
 import { useRef } from 'react';
 import Image from 'next/image';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { m, useScroll, useTransform, useSpring } from 'framer-motion';
 import Button from '@/components/ui/buttons/SolidButton';
 
 import auraPool from '../../../../public/assets/auraPool.jpg';
@@ -63,20 +63,19 @@ function ServiceCard({ service, index }) {
   });
 
   return (
-    <motion.div
+    <m.div
       ref={cardRef}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: index * 0.05 }}
-      className={`group relative h-[350px] md:h-[480px] rounded-[24px] md:rounded-[32px] overflow-hidden ${service.size} cursor-pointer shadow-[0_4px_30px_rgba(0,0,0,0.02)] border border-stone-200/40`}
+      className={`group relative h-[350px] md:h-[480px] rounded-[24px] md:rounded-[32px] overflow-hidden ${service.size} cursor-pointer shadow-[0_4px_30px_rgba(0,0,0,0.02)] border border-stone-200/40 will-change-[opacity,transform]`}
     >
       {/* Контейнер бэкграунда с параллаксом */}
-      <motion.div
+      <m.div
         style={{ y: smoothY }}
         className="absolute -inset-y-12 inset-x-0 z-0 will-change-transform"
       >
-        {/* ДОБАВИЛИ КЛАСС relative СЮДА, чтобы зафиксировать рамки для <Image /> */}
         <div className="relative w-full h-full transition-transform duration-700 ease-[0.16,1,0.3,1] group-hover:scale-105">
           {service.image ? (
             <Image
@@ -84,7 +83,7 @@ function ServiceCard({ service, index }) {
               alt={service.title}
               fill
               placeholder="blur"
-              sizes="(max-width: 768px) 100vw, 50vw"
+              sizes="(max-w: 768px) 100vw, 50vw"
               className="object-cover"
               priority={index < 2}
             />
@@ -92,7 +91,7 @@ function ServiceCard({ service, index }) {
             <div className={`w-full h-full ${service.bg}`} />
           )}
         </div>
-      </motion.div>
+      </m.div>
 
       {/* Градиентное затемнение поверх параллакса */}
       <div className="absolute inset-0 z-10 bg-gradient-to-t from-brand-dark/70 via-brand-dark/20 to-transparent transition-opacity duration-500 opacity-80 group-hover:opacity-95" />
@@ -102,11 +101,11 @@ function ServiceCard({ service, index }) {
         <span className="text-xs md:text-sm uppercase tracking-[0.15em] text-brand-white/70 mb-2 block font-normal">
           {service.time}
         </span>
-        <h3 className="text-xl md:text-2xl font-medium tracking-tight max-w-sm group-hover:translate-x-1 transition-transform duration-500 ease-[0.16, 1, 0.3, 1]">
+        <m.h3 className="text-xl md:text-2xl font-medium tracking-tight max-w-sm group-hover:translate-x-1 transition-transform duration-500 ease-[0.16, 1, 0.3, 1] will-change-transform">
           {service.title}
-        </h3>
+        </m.h3>
       </div>
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -120,24 +119,24 @@ export default function Services() {
 
       {/* ЗАГОЛОВОК СЕКЦИИ */}
       <div className="w-full max-w-[1400px] mb-12 md:mb-20 flex flex-col md:flex-row md:items-end justify-between gap-4">
-        <motion.h2
+        <m.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="font-medium text-3xl md:text-5xl tracking-tight leading-none"
+          className="font-medium text-3xl md:text-5xl tracking-tight leading-none will-change-[opacity,transform]"
         >
           Услуги и развлечения
-        </motion.h2>
-        <motion.p
+        </m.h2>
+        <m.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2, duration: 0.8 }}
-          className="text-sm md:text-base text-brand-dark/60 max-w-xs font-normal tracking-wide"
+          className="text-sm md:text-base text-brand-dark/60 max-w-xs font-normal tracking-wide will-change-opacity"
         >
           Создали все условия, чтобы ваш отдых был беззаботным и наполненным комфортом.
-        </motion.p>
+        </m.p>
       </div>
 
       {/* АСИММЕТРИЧНАЯ СЕТКА КАРТОЧЕК */}
@@ -148,12 +147,12 @@ export default function Services() {
       </div>
 
       {/* КНОПКА */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ delay: 0.4 }}
-        className="mt-16 md:mt-24"
+        className="mt-16 md:mt-24 will-change-opacity"
       >
         <Button
           variant="outline"
@@ -162,7 +161,7 @@ export default function Services() {
         >
           Показать все услуги
         </Button>
-      </motion.div>
+      </m.div>
 
     </section>
   );
