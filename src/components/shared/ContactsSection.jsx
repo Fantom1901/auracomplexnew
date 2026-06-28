@@ -32,7 +32,7 @@ export default function ContactsSection() {
                 </div>
                 <div className="text-center">
                   <p className="text-sm font-medium tracking-wide text-white/90">Показать интерактивную карту</p>
-                  <p className="text-xs text-white/40 mt-1">пос. Манский, Дивногорск</p>
+                  <p className="text-xs text-white/40 mt-1">пос. Манский</p>
                 </div>
               </div>
             </button>

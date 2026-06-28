@@ -3,7 +3,8 @@
 import { useRef } from 'react';
 import Image from 'next/image';
 import { m, useScroll, useTransform, useSpring } from 'framer-motion';
-import heroImg from '../../../../public/assets/HeroImage.png';
+// Меняем импорт на оптимизированный .webp
+import heroImg from '../../../../public/assets/HeroImage.webp';
 import AnimatedButton from '@/components/ui/buttons/AnimatedButton';
 
 export default function Hero() {
@@ -38,12 +39,10 @@ export default function Hero() {
       ref={containerRef}
       className="relative w-full h-[85vh] xl:h-[90vh] overflow-hidden bg-stone-950"
     >
-      {/* ОБЕРТКА ФОНА: Чтобы SSR сразу отдавал картинку браузеру,
-        мы жестко задаем стиль для серверного рендеринга, который потом перехватит framer-motion
-      */}
+      {/* ОБЕРТКА ФОНА */}
       <m.div
         style={{ y: backgroundY }}
-        initial={{ y: 0 }} // <-- Принудительный сброс для корректного SSR дерева
+        initial={{ y: 0 }}
         className="absolute -inset-y-20 inset-x-0 z-0 will-change-transform"
       >
         <Image
@@ -51,9 +50,9 @@ export default function Hero() {
           alt="База отдыха Аура"
           priority
           fill
-          quality={90}
-          sizes="100vw"
-          fetchPriority="high" // <-- Браузер качает картинку в первую очередь
+          quality={75} // Срезаем до дефолтных 75 (идеальный баланс веса и качества)
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1920px" // Ограничиваем максимальную ширину для десктопов
+          fetchPriority="high"
           className="object-cover"
         />
         <div className="absolute inset-0 bg-black/30" />
