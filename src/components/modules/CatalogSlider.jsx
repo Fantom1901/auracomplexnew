@@ -136,14 +136,16 @@ export default function CatalogSlider() {
                 onClick={() => setActiveImage(slide.src)}
                 className="relative flex-none w-[84vw] md:w-[38vw] max-w-[480px] aspect-[1024/1280] rounded-2xl md:rounded-3xl overflow-hidden bg-stone-100 border border-stone-200/30 shadow-sm transition-shadow duration-300 hover:shadow-md cursor-zoom-in"
               >
+                {/* Убираем fill, ставим жесткие width/height и override-размеры */}
                 <Image
                   src={slide.src}
                   alt="Локация комплекса AURA"
-                  fill
+                  width={384} // Ограничиваем базовую ширину генерируемого файла
+                  height={480} // Пропорционально aspect-[1024/1280] (0.8)
                   placeholder="blur"
-                  quality={70} // Зажимаем сильнее, для карусели 70% качества — с головой
-                  sizes="(max-width: 640px) 344px, (max-width: 1024px) 440px, 480px" // Жестко ограничили размеры под сетку
-                  className="object-cover pointer-events-none"
+                  quality={60} // Зажимаем сильнее. Для карусели из 9 штук это критично
+                  sizes="(max-width: 640px) 344px, 440px"
+                  className="w-full h-full object-cover pointer-events-none"
                 />
 
                 <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent pointer-events-none" />
