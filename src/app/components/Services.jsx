@@ -5,10 +5,10 @@ import Image from 'next/image';
 import { m, useScroll, useTransform, useSpring } from 'framer-motion';
 import Button from '@/components/ui/buttons/SolidButton';
 
-import auraPool from '../../../../public/assets/auraPool.jpg';
-import banyaImg from '../../../../public/assets/banya.webp'; // Переключили на webp
-import kidsImg from '../../../../public/assets/kids.jpg';
-import playgroundImg from '../../../../public/assets/playground.jpg';
+import auraPool from '../../../public/assets/auraPool.jpg';
+import banyaImg from '../../../public/assets/banya.webp'; // Переключили на webp
+import kidsImg from '../../../public/assets/kids.jpg';
+import playgroundImg from '../../../public/assets/playground.jpg';
 
 const servicesData = [
   {

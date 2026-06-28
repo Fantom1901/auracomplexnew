@@ -4,7 +4,7 @@ import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import { m, useScroll, useTransform } from 'framer-motion';
 // Переключаемся на легковесный формат webp
-import aboutImg from '../../../../public/assets/noroot.webp';
+import aboutImg from '../../../public/assets/noroot.webp';
 
 export function About() {
   const containerRef = useRef(null);

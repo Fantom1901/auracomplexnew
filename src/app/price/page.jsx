@@ -1,5 +1,5 @@
 import PageWrapper from '@/components/layout/PageWrapper';
-import PriceSection from '@/components/sections/price/PriceSection';
+import PriceSection from '@/app/price/components/PriceSection';
 
 export const metadata = {
   title: 'Цены на проживание и услуги термального комплекса AURA',

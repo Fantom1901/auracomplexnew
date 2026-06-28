@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { m } from 'framer-motion';
 import Logo from '@/components/ui/media/Logo';
 import AnimatedButton from '@/components/ui/buttons/AnimatedButton';
@@ -7,6 +8,22 @@ import NavLink from '@/components/ui/buttons/NavLink';
 import { FaTelegram, FaVk, FaOdnoklassniki } from 'react-icons/fa';
 
 export default function MobileMenu({ isOpen, setIsOpen, menuItems }) {
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  // Проверяем сессию куки на клиенте через наш быстрый API-чек
+  useEffect(() => {
+    if (isOpen) { // Дёргаем только когда шторка реально открывается
+      fetch('/api/auth/check')
+        .then((res) => res.json())
+        .then((data) => setIsAdmin(data.isAuthenticated))
+        .catch(() => setIsAdmin(false));
+    }
+  }, [isOpen]);
+
+  // Склеиваем массивы, если админ авторизован
+  const finalMenuItems = isAdmin
+    ? [...menuItems, { name: 'Админ-панель', href: '/admin' }]
+    : menuItems;
 
   // Единый жесткий транзишн без пружин и отскоков для самого меню
   const menuTransition = {
@@ -40,7 +57,7 @@ export default function MobileMenu({ isOpen, setIsOpen, menuItems }) {
     <m.div
       initial={{ x: '100%' }}
       animate={{ x: isOpen ? '0%' : '100%' }}
-      transition={menuTransition} // Повесили чистый tween
+      transition={menuTransition}
       className="fixed top-0 right-0 h-screen w-[75vw] sm:w-[320px] bg-stone-950 pt-20 px-6 flex flex-col lg:hidden z-50 pointer-events-auto border-l border-white/5 will-change-transform"
     >
       {/* Логотип */}
@@ -53,14 +70,14 @@ export default function MobileMenu({ isOpen, setIsOpen, menuItems }) {
         <Logo size={'lg'} />
       </m.div>
 
-      {/* ССЫЛКИ */}
+      {/* ССЫЛКИ (Используют динамический массив finalMenuItems) */}
       <m.div
         variants={navContainerVariants}
         initial="hidden"
         animate={isOpen ? "show" : "hidden"}
         className="flex flex-col"
       >
-        {menuItems.map((item) => (
+        {finalMenuItems.map((item) => (
           <m.div
             key={item.name}
             variants={navItemVariants}

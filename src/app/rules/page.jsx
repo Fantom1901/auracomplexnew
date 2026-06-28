@@ -1,7 +1,7 @@
 "use client";
 
 import PageWrapper from '@/components/layout/PageWrapper';
-import { RulesSidebar, RulesMainContent } from '@/components/sections/rules/RulesComponents'; // Локальный импорт из этой же папки
+import { RulesSidebar, RulesMainContent } from '@/app/rules/components/RulesComponents'; // Локальный импорт из этой же папки
 
 // Тянем чистые конфигурационные данные из глобального слоя
 import {

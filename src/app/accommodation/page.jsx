@@ -1,5 +1,5 @@
 import PageWrapper from '@/components/layout/PageWrapper';
-import AccommodationSection from '@/components/sections/Accommodation/AccommodationSection';
+import AccommodationSection from '@/app/accommodation/components/AccommodationSection';
 
 export const metadata = {
   title: 'Элитные дома и номера для проживания на берегу Маны',

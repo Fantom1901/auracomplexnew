@@ -6,8 +6,8 @@ import { m, useScroll, useTransform, useSpring } from 'framer-motion';
 import Button from '@/components/ui/buttons/SolidButton';
 
 // ИМПОРТИРУЕМ ФОТО СЮДА (Замени названия файлов на свои)
-import restaurantMain from '../../../../public/assets/restaurantMain.jpg';
-import restaurantAccent from '../../../../public/assets/restaurantAccent.jpg';
+import restaurantMain from '../../../public/assets/restaurantMain.jpg';
+import restaurantAccent from '../../../public/assets/restaurantAccent.jpg';
 
 export default function Restaurant() {
   const collageRef = useRef(null);

@@ -1,5 +1,5 @@
 import PageWrapper from "@/components/layout/PageWrapper";
-import RestaurantMenuSection from "@/components/sections/restaurant/RestaurantMenuSection";
+import RestaurantMenuSection from "@/app/restaurant/components/RestaurantMenuSection";
 
 const pageTitle = "Меню ресторана «Тепло»";
 

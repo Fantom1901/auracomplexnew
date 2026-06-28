@@ -1,10 +1,26 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { m } from 'framer-motion';
 import Logo from '@/components/ui/media/Logo';
 import NavLink from '@/components/ui/buttons/NavLink';
 
 export default function Header({ isOpen, setIsOpen, menuItems, shiftClasses = '', transitionClasses = '' }) {
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  // Проверяем сессию при загрузке шапки
+  useEffect(() => {
+    fetch('/api/auth/check')
+      .then((res) => res.json())
+      .then((data) => setIsAdmin(data.isAuthenticated))
+      .catch(() => setIsAdmin(false));
+  }, []);
+
+  // Если админ авторизован, подмешиваем ссылку на админку в общий массив меню
+  const finalMenuItems = isAdmin
+    ? [...menuItems, { name: 'Админ-панель', href: '/admin' }]
+    : menuItems;
+
   const headerVariants = {
     initial: { y: -100, opacity: 0 },
     animate: {
@@ -33,9 +49,9 @@ export default function Header({ isOpen, setIsOpen, menuItems, shiftClasses = ''
               <Logo inHeader={true} size={"lg"} />
             </m.div>
 
-            {/* ДЕСКТОПНОЕ МЕНЮ */}
+            {/* ДЕСКТОПНОЕ МЕНЮ (Использует динамический массив finalMenuItems) */}
             <nav className="hidden lg:flex w-auto mx-auto items-center justify-center gap-12 font-normal text-sm pointer-events-auto">
-              {menuItems.map((item) => (
+              {finalMenuItems.map((item) => (
                 <NavLink
                   key={item.name}
                   href={item.href}

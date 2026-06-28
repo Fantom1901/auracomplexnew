@@ -1,6 +1,6 @@
 import PageWrapper from "@/components/layout/PageWrapper";
-import RestaurantAboutSection from "@/components/sections/restaurant/RestaurantAboutSection";
-import RestaurantGallerySection from "@/components/sections/restaurant/RestaurantGallerySection";
+import RestaurantAboutSection from "@/app/restaurant/components/RestaurantAboutSection";
+import RestaurantGallerySection from "@/app/restaurant/components/RestaurantGallerySection";
 
 const pageWrapperTitle = 'Ресторан на Мане «Тепло»';
 

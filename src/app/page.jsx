@@ -1,13 +1,13 @@
-import Hero from "@/components/sections/home/Hero"
-import {About} from "@/components/sections/home/About"
+import Hero from "@/app/components/Hero"
+import {About} from "@/app/components/About"
 import CatalogSlider from "@/components/features/CatalogSlider";
-import Accommodation from "@/components/sections/home/Accommodation";
-import Services from "@/components/sections/home/Services";
-import Restaurant from "@/components/sections/home/Restaurant";
-import Gallery from "@/components/sections/home/Gallery";
+import Accommodation from "@/app/components/Accommodation";
+import Services from "@/app/components/Services";
+import Restaurant from "@/app/components/Restaurant";
+import Gallery from "@/app/components/Gallery";
 import MapSection from "@/components/shared/MapSection";
 import CertificateSection from "@/components/shared/CertificateSection";
-import FaqSection from "@/components/sections/home/FaqSection";
+import FaqSection from "@/app/components/FaqSection";
 import LeadFormSection from "@/components/shared/LeadFormSection";
 
 export default function Home() {

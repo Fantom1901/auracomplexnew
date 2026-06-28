@@ -1,5 +1,5 @@
 import PageWrapper from '@/components/layout/PageWrapper';
-import ServicesSection from '@/components/sections/services/ServicesSection';
+import ServicesSection from '@/app/services/components/ServicesSection';
 
 export const metadata = {
   title: 'Премиальные услуги и спа-программы комплекса AURA',

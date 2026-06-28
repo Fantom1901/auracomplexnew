@@ -4,7 +4,7 @@ import { useRef } from 'react';
 import Image from 'next/image';
 import { m, useScroll, useTransform, useSpring } from 'framer-motion';
 // Меняем импорт на оптимизированный .webp
-import heroImg from '../../../../public/assets/HeroImage.webp';
+import heroImg from '../../../public/assets/HeroImage.webp';
 import AnimatedButton from '@/components/ui/buttons/AnimatedButton';
 
 export default function Hero() {
