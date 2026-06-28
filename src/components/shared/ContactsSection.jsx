@@ -1,22 +1,52 @@
+'use client';
+
+import { useState } from 'react';
 import { FaTelegram, FaVk, FaOdnoklassniki } from 'react-icons/fa';
 
 export default function ContactsSection() {
+  const [isMapLoaded, setIsMapLoaded] = useState(false);
+
   return (
     <section className="w-full bg-[#304340] text-white py-16 md:py-24 px-6 md:px-16 flex justify-center border-t border-white/10">
       <div className="w-full max-w-[1400px] grid grid-cols-1 lg:grid-cols-12 rounded-[24px] md:rounded-[40px] overflow-hidden bg-[#e5eae7]/5 border border-white/5 shadow-2xl">
 
-        {/* ЛЕВАЯ ЧАСТЬ: ИНТЕРАКТИВНАЯ КАРТА */}
+        {/* ЛЕВАЯ ЧАСТЬ: ИНТЕРАКТИВНАЯ КАРТА С КЛИК-АКТИВАЦИЕЙ */}
         <div className="lg:col-span-6 xl:col-span-7 w-full h-[350px] sm:h-[450px] lg:h-auto min-h-[400px] relative bg-[#263533]">
-          {/* Интерактивная Яндекс.Карта с точкой пос. Манский */}
-          <iframe
-            src="https://yandex.ru/map-widget/v1/?um=constructor%3A63dd39fa1e3976991ac1d8e712ffc3cbb30ecadef578d4c5ddea5dcc795ac285&amp;source=constructor"
-            width="100%"
-            height="100%"
-            className="border-0 opacity-80 hover:opacity-100 transition-opacity duration-500 min-h-[400px]"
-            allowFullScreen={true}
-            loading="lazy"
-            title="Карта проезда к AURA"
-          />
+
+          {!isMapLoaded ? (
+            /* Заглушка до клика: предотвращает загрузку сторонних кук и скриптов */
+            <button
+              onClick={() => setIsMapLoaded(true)}
+              className="absolute inset-0 w-full h-full flex flex-col items-center justify-center bg-[#1d2927] group outline-none cursor-pointer"
+              aria-label="Активировать интерактивную карту"
+            >
+              {/* Тут можно сделать красивый фоновый градиент или подложить mapAuraImg через Next.js Image */}
+              <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#e5eae7_1px,transparent_1px)] [background-size:16px_16px] group-hover:scale-105 transition-transform duration-700" />
+
+              <div className="relative z-10 flex flex-col items-center gap-4 p-6">
+                <div className="w-14 h-14 rounded-full bg-[#304340] border border-white/10 flex items-center justify-center shadow-xl group-hover:scale-110 group-hover:bg-[#39504c] transition-all duration-300">
+                  <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </div>
+                <div className="text-center">
+                  <p className="text-sm font-medium tracking-wide text-white/90">Показать интерактивную карту</p>
+                  <p className="text-xs text-white/40 mt-1">пос. Манский, Дивногорск</p>
+                </div>
+              </div>
+            </button>
+          ) : (
+            /* Реальный iframe грузится строго в момент клика */
+            <iframe
+              src="https://yandex.ru/map-widget/v1/?um=constructor%3A63dd39fa1e3976991ac1d8e712ffc3cbb30ecadef578d4c5ddea5dcc795ac285&amp;source=constructor"
+              width="100%"
+              height="100%"
+              className="border-0 opacity-90 hover:opacity-100 transition-opacity duration-500 min-h-[400px] absolute inset-0"
+              allowFullScreen={true}
+              title="Карта проезда к AURA"
+            />
+          )}
         </div>
 
         {/* ПРАВАЯ ЧАСТЬ: ИНФОРМАЦИОННАЯ ПАНЕЛЬ С КОНТАКТАМИ */}
