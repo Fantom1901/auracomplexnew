@@ -1,7 +1,7 @@
 'use client';
 
 import { m } from 'framer-motion';
-import Logo from '@/components/ui/Logo';
+import Logo from '@/components/ui/media/Logo';
 import AnimatedButton from '@/components/ui/buttons/AnimatedButton';
 import NavLink from '@/components/ui/buttons/NavLink';
 import { FaTelegram, FaVk, FaOdnoklassniki } from 'react-icons/fa';

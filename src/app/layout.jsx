@@ -1,7 +1,7 @@
 import localFont from 'next/font/local';
 import dynamic from 'next/dynamic';
 import { LazyMotion, domAnimation } from 'framer-motion';
-import TelegramMenuWrapper from '@/components/ui/TelegramMenuWrapper';
+import TelegramMenuWrapper from '@/components/layout/TelegramMenuWrapper';
 import './globals.css';
 
 const ContactsSection = dynamic(() => import('@/components/shared/ContactsSection'), {
@@ -16,8 +16,8 @@ const Footer = dynamic(() => import('@/components/layout/Footer'), {
 
 const atypText = localFont({
   src: [
-    { path: './fonts/AtypText-Regular.woff2', weight: '400', style: 'normal' },
-    { path: './fonts/AtypText-Medium.woff2', weight: '500', style: 'normal' },
+    { path: '../../public/fonts/AtypText-Regular.woff2', weight: '400', style: 'normal' },
+    { path: '../../public/fonts/AtypText-Medium.woff2', weight: '500', style: 'normal' },
   ],
   variable: '--font-atyp',
   preload: true,
